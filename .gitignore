@@ -83,5 +83,6 @@ venv.bak/
 
 # IDEs
 .idea/
-!/out/
-!/tests/test directory/
+/out/
+/tests/test directory/
+!/.pre-commit-config.yaml
