@@ -7,7 +7,7 @@ import sys
 from datetime import datetime
 from typing import Union
 
-from src.redcaputilities.directories import ensure_output_path_exists
+from redcaputilities.directories import ensure_output_path_exists
 
 
 def patient_data_directory() -> str:
