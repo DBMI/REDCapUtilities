@@ -20,5 +20,5 @@ def test_ensure_path_exists():
         ensure_output_path_exists(None)
 
     with pytest.raises(OSError):
-        malformed_path = os.path.join(test_path, '.***', 'nonsense.txt')
+        malformed_path = os.path.join(test_path, r"name that can't be? :/<parsed*?", 'nonsense.txt')
         ensure_output_path_exists(malformed_path)
