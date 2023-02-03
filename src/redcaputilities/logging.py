@@ -22,7 +22,7 @@ def patient_data_directory() -> str:
     patient_data_dir = os.getenv("PATIENT_DATA")
 
     if not patient_data_dir:  # pragma: no cover
-        patient_data_dir = r"F:\AoU_V2"
+        patient_data_dir = r"F:\AoU_v2"
 
     return patient_data_dir
 
