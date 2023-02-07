@@ -48,7 +48,9 @@ def test_clean_up_date_list():
     date_string_list = ["01/02/2023", "1/2/2023", "January 2, 2023"]
     date_strings_cleaned = clean_up_date(input_string=date_string_list)
     assert isinstance(date_strings_cleaned, list)
-    assert all([date_string == date_string_proper for date_string in date_strings_cleaned])
+    assert all(
+        [date_string == date_string_proper for date_string in date_strings_cleaned]
+    )
 
 
 def test_clean_up_phone():
@@ -82,7 +84,9 @@ def test_clean_up_phone_list():
     phone_strings_list = ["123-456-7890", "1-123-456-7890", "1234567890"]
     phone_strings_cleaned = clean_up_phone(input_string=phone_strings_list)
     assert isinstance(phone_strings_cleaned, list)
-    assert all([phone_string == phone_string_proper for phone_string in phone_strings_cleaned])
+    assert all(
+        [phone_string == phone_string_proper for phone_string in phone_strings_cleaned]
+    )
 
 
 def test_clean_up_time():
@@ -119,8 +123,13 @@ def test_clean_up_time():
 def test_clean_up_time_list():
     time_string_proper = "15:01:02"
 
-    time_strings_list = ["01/02/2023 3:01:02 PM", "1/2/2023 15:01:02", "January 2, 2023 3:01:02 PM"]
+    time_strings_list = [
+        "01/02/2023 3:01:02 PM",
+        "1/2/2023 15:01:02",
+        "January 2, 2023 3:01:02 PM",
+    ]
     time_strings_cleaned = clean_up_time(input_string=time_strings_list)
     assert isinstance(time_strings_cleaned, list)
-    assert all([time_string == time_string_proper for time_string in time_strings_cleaned])
-
+    assert all(
+        [time_string == time_string_proper for time_string in time_strings_cleaned]
+    )

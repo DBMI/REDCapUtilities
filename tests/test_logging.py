@@ -9,7 +9,7 @@ from src.redcaputilities.logging import patient_data_directory, setup_logging
 
 
 def test_logging_setup(secure_data_directory):
-    logs_path = os.path.join(secure_data_directory, 'logs')
+    logs_path = os.path.join(secure_data_directory, "logs")
     target_log_file = os.path.join(logs_path, "test.log")
 
     if os.path.exists(target_log_file):
@@ -27,7 +27,7 @@ def test_logging_setup(secure_data_directory):
     setup_logging()
 
     today = datetime.today().strftime("%Y%m%d")
-    pattern = 'redcap_' + today + '*.log'
+    pattern = "redcap_" + today + "*.log"
 
     # Look for file (which will have a filename containing timestamp.)
     assert any(fnmatch(file, pattern) for file in os.listdir(logs_path))

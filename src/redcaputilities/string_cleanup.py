@@ -1,7 +1,6 @@
 """
     Allows other projects to easily use these string cleanup utilities.
 """
-from datetime import datetime
 from typing import Union
 
 import dateutil.parser
@@ -58,20 +57,18 @@ def clean_up_phone(input_string: Union[str, list]) -> Union[str, list]:
     if not isinstance(input_string, str):
         raise TypeError("Argument 'input_string' is neither string nor list.")
 
-    if (input_string.upper().strip() == "NULL"
-            or input_string.upper().strip() == "NONE"
-    ):
+    if input_string.upper().strip() == "NULL" or input_string.upper().strip() == "NONE":
         return ""
 
     numeric_filter = filter(str.isdigit, input_string)
     numeric_string = "".join(numeric_filter)
 
     if numeric_string in (
-            "0000000000",
-            "10000000000",
-            "9999999999",
-            "19999999999",
-            "1111111111",
+        "0000000000",
+        "10000000000",
+        "9999999999",
+        "19999999999",
+        "1111111111",
     ):
         return ""
 
