@@ -30,8 +30,13 @@ def clean_up_date(input_string: Union[str, list]) -> Union[str, list]:
         raise TypeError("Argument 'input_string' is neither string nor list.")
 
     # Let's not reinvent the wheel. Use this flexible library.
-    datetime_obj = dateutil.parser.parse(input_string)
-    return datetime_obj.strftime("%Y-%m-%d")
+    try:
+        datetime_obj = dateutil.parser.parse(input_string)
+        cleaned_up_date = datetime_obj.strftime("%Y-%m-%d")
+    except dateutil.parser.ParserError:
+        cleaned_up_date = ""
+
+    return cleaned_up_date
 
 
 def clean_up_phone(input_string: Union[str, list]) -> Union[str, list]:
@@ -108,6 +113,10 @@ def clean_up_time(input_string: Union[str, list]) -> Union[str, list]:
         raise TypeError("Argument 'input_string' is neither string nor list.")
 
     # Let's not reinvent the wheel. Use this flexible library.
-    datetime_obj = dateutil.parser.parse(input_string)
+    try:
+        datetime_obj = dateutil.parser.parse(input_string)
+        cleaned_up_time = datetime_obj.strftime("%H:%M:%S")
+    except dateutil.parser.ParserError:
+        cleaned_up_time = ""
 
-    return datetime_obj.strftime("%H:%M:%S")
+    return cleaned_up_time
