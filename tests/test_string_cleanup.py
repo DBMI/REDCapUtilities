@@ -38,8 +38,9 @@ def test_clean_up_date():
         clean_up_date(input_string=12345)
 
     # Test if it can't parse.
-    with pytest.raises(dateutil.parser.ParserError):
-        clean_up_date(input_string="ABCDEFG")
+    date_string_cleaned =clean_up_date(input_string="ABCDEFG")
+    assert isinstance(date_string_cleaned, str)
+    assert len(date_string_cleaned) == 0
 
 
 def test_clean_up_date_list():
@@ -112,8 +113,9 @@ def test_clean_up_time():
     assert time_string_cleaned == time_string_proper
 
     # Test if it can't parse.
-    with pytest.raises(dateutil.parser.ParserError):
-        clean_up_time(input_string="ABCDEFG")
+    time_string_cleaned = clean_up_time(input_string="ABCDEFG")
+    assert isinstance(time_string_cleaned, str)
+    assert len(time_string_cleaned) == 0
 
     # Expect to raise an error:
     with pytest.raises(TypeError):
