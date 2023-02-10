@@ -41,6 +41,10 @@ def test_clean_up_date():
     assert isinstance(date_string_cleaned, str)
     assert len(date_string_cleaned) == 0
 
+    date_string_cleaned = clean_up_date(input_string=None)
+    assert isinstance(date_string_cleaned, str)
+    assert len(date_string_cleaned) == 0
+
 
 def test_clean_up_date_list():
     date_string_proper = "2023-01-02"
@@ -86,6 +90,9 @@ def test_clean_up_phone():
     with pytest.raises(TypeError):
         clean_up_phone(input_string=12345)
 
+    phone_string_cleaned = clean_up_phone(input_string=None)
+    assert isinstance(phone_string_cleaned, str)
+    assert len(phone_string_cleaned) == 0
 
 def test_clean_up_phone_list():
     phone_string_proper = "123-456-7890"
@@ -137,6 +144,10 @@ def test_clean_up_time():
     # Expect to raise an error:
     with pytest.raises(TypeError):
         clean_up_time(input_string=12345)
+
+    time_string_cleaned = clean_up_time(input_string=None)
+    assert isinstance(time_string_cleaned, str)
+    assert len(time_string_cleaned) == 0
 
 
 def test_clean_up_time_list():
