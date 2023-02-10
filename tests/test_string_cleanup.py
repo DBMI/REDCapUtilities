@@ -2,7 +2,6 @@
 Module test_string_cleanup.py, which performs automated
 testing of the functions in string_cleanup.py
 """
-import dateutil.parser
 import pytest
 from src.redcaputilities.string_cleanup import (
     clean_up_date,
@@ -38,7 +37,7 @@ def test_clean_up_date():
         clean_up_date(input_string=12345)
 
     # Test if it can't parse.
-    date_string_cleaned =clean_up_date(input_string="ABCDEFG")
+    date_string_cleaned = clean_up_date(input_string="ABCDEFG")
     assert isinstance(date_string_cleaned, str)
     assert len(date_string_cleaned) == 0
 
@@ -52,6 +51,15 @@ def test_clean_up_date_list():
     assert all(
         [date_string == date_string_proper for date_string in date_strings_cleaned]
     )
+
+
+def test_clean_up_date_series(dataframe):
+    date_string_proper = "2023-01-02"
+    dataframe["dob"] = dataframe["dob"].apply(clean_up_date)
+    assert dataframe["dob"][0] == date_string_proper
+
+    date_string_cleaned = clean_up_date(dataframe['dob'])
+    assert date_string_cleaned == date_string_proper
 
 
 def test_clean_up_phone():
@@ -88,6 +96,15 @@ def test_clean_up_phone_list():
     assert all(
         [phone_string == phone_string_proper for phone_string in phone_strings_cleaned]
     )
+
+
+def test_clean_up_phone_series(dataframe):
+    phone_string_proper = "123-456-7890"
+    dataframe["phone"] = dataframe["phone"].apply(clean_up_phone)
+    assert dataframe["phone"][0] == phone_string_proper
+
+    phone_string_cleaned = clean_up_phone(dataframe['phone'])
+    assert phone_string_cleaned == phone_string_proper
 
 
 def test_clean_up_time():
@@ -135,3 +152,12 @@ def test_clean_up_time_list():
     assert all(
         [time_string == time_string_proper for time_string in time_strings_cleaned]
     )
+
+
+def test_clean_up_time_series(dataframe):
+    time_string_proper = "15:01:02"
+    dataframe["time"] = dataframe["time"].apply(clean_up_time)
+    assert dataframe["time"][0] == time_string_proper
+
+    time_string_cleaned = clean_up_time(dataframe['time'])
+    assert time_string_cleaned == time_string_proper

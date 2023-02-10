@@ -27,7 +27,7 @@ def ensure_output_path_exists(target_filename: str = "") -> None:
 
         if not os.path.exists(target_path):
             os.makedirs(target_path)
-    except OSError as create_path_error: #  pragma: no cover
+    except OSError as create_path_error:  # pragma: no cover
         raise OSError(
             f"Unable to create path: '{target_path}' "
             + f"because{str(create_path_error)}."
