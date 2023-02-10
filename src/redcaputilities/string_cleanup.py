@@ -27,6 +27,9 @@ def clean_up_date(input_string: Union[str, list, pandas.Series]) -> Union[str, l
 
         return cleaned_up_dates
 
+    if input_string is None:
+        return ""
+
     if isinstance(input_string, pandas.Series):
         input_string = input_string[0]
 
@@ -62,6 +65,9 @@ def clean_up_phone(input_string: Union[str, list, pandas.Series]) -> Union[str, 
             cleaned_up_phones.append(clean_up_phone(this_string))
 
         return cleaned_up_phones
+
+    if input_string is None:
+        return ""
 
     if isinstance(input_string, pandas.Series):
         input_string = input_string[0]
@@ -115,6 +121,9 @@ def clean_up_time(input_string: Union[str, list, pandas.Series]) -> Union[str, l
             cleaned_up_times.append(clean_up_time(this_string))
 
         return cleaned_up_times
+
+    if input_string is None:
+        return ""
 
     if isinstance(input_string, pandas.Series):
         input_string = input_string[0]
