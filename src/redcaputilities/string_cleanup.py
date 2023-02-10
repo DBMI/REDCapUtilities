@@ -4,14 +4,15 @@
 from typing import Union
 
 import dateutil.parser
+import pandas  # type: ignore[import]
 
 
-def clean_up_date(input_string: Union[str, list]) -> Union[str, list]:
+def clean_up_date(input_string: Union[str, list, pandas.Series]) -> Union[str, list]:
     """Ensures dates are in yyyy-mm-dd format.
 
     Parameters
     ----------
-    input_string : Either a string or a list of strings
+    input_string : Either a string or a list of strings or a pandas.Series
 
     Returns
     -------
@@ -26,6 +27,9 @@ def clean_up_date(input_string: Union[str, list]) -> Union[str, list]:
 
         return cleaned_up_dates
 
+    if isinstance(input_string, pandas.Series):
+        input_string = input_string[0]
+
     if not isinstance(input_string, str):
         raise TypeError("Argument 'input_string' is neither string nor list.")
 
@@ -39,12 +43,12 @@ def clean_up_date(input_string: Union[str, list]) -> Union[str, list]:
     return cleaned_up_date
 
 
-def clean_up_phone(input_string: Union[str, list]) -> Union[str, list]:
+def clean_up_phone(input_string: Union[str, list, pandas.Series]) -> Union[str, list]:
     """Ensures phone numbers are in ###-###-#### format. Detects & removes likely dummy numbers like "9999999999".
 
     Parameters
     ----------
-    input_string : Either a string or a list of strings
+    input_string : Either a string or a list of strings or a pandas.Series
 
     Returns
     -------
@@ -58,6 +62,9 @@ def clean_up_phone(input_string: Union[str, list]) -> Union[str, list]:
             cleaned_up_phones.append(clean_up_phone(this_string))
 
         return cleaned_up_phones
+
+    if isinstance(input_string, pandas.Series):
+        input_string = input_string[0]
 
     if not isinstance(input_string, str):
         raise TypeError("Argument 'input_string' is neither string nor list.")
@@ -89,12 +96,12 @@ def clean_up_phone(input_string: Union[str, list]) -> Union[str, list]:
     return f"{prefix}-{exchange}-{rest}"
 
 
-def clean_up_time(input_string: Union[str, list]) -> Union[str, list]:
+def clean_up_time(input_string: Union[str, list, pandas.Series]) -> Union[str, list]:
     """Ensures times are in HH:MM:SS format.
 
     Parameters
     ----------
-    input_string : Either a string or a list of strings
+    input_string : Either a string or a list of strings or a pandas.Series
 
     Returns
     -------
@@ -108,6 +115,9 @@ def clean_up_time(input_string: Union[str, list]) -> Union[str, list]:
             cleaned_up_times.append(clean_up_time(this_string))
 
         return cleaned_up_times
+
+    if isinstance(input_string, pandas.Series):
+        input_string = input_string[0]
 
     if not isinstance(input_string, str):
         raise TypeError("Argument 'input_string' is neither string nor list.")
