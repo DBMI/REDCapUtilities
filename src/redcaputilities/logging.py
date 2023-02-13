@@ -1,10 +1,10 @@
 """
     Allows other projects to easily use logging.
 """
+import inspect
 import logging
 import os
 import sys
-from datetime import datetime
 from typing import Union
 
 from redcaputilities.directories import ensure_output_path_exists
@@ -32,34 +32,43 @@ def setup_logging(log_filename: Union[str, None] = None) -> logging.Logger:
 
     Parameters
     ----------
-    log_filename : Optional str Just the name (not path) of the log file.
+    log_filename : Optional str Desired name of the log file.
+                    Can be either a full path or just a filename.
+                    Either way, will insist on saving file to patient_data_directory()
+                    for safe storage.
 
     Returns
     -------
     logger : logging.Logger object to be used in calling routine.
 
     """
-    # Clear up any old stuff.
+    #       Clear up any old stuff.
     for handler in logging.root.handlers[:]:
         logging.root.removeHandler(handler)
 
-    # Put log files in proper directory.
-    patient_data_dir = patient_data_directory()
-    logs_directory = os.path.join(patient_data_dir, "logs")
-
     if not isinstance(log_filename, str):
-        now = datetime.today().strftime("%Y%m%d_%H%M%S")
-        log_filename = f"redcap_{now}.log"
+        #   If user didn't supply a filename, create it with the calling module's name.
+        #   (Don't use calling >function<, as it will likely be '__init__', which tells us nothing.
+        frame_records = inspect.stack()[1]
+        calling_module = inspect.getmodulename(frame_records[1])
+        log_filename = f"redcap_{calling_module}.log"
 
-    log_full_filename = os.path.join(logs_directory, log_filename)
-    ensure_output_path_exists(log_full_filename)
+    #   Put log files in proper directory.
+    patient_data_dir = patient_data_directory()
 
-    logger = logging.getLogger(__name__)
+    if patient_data_dir not in log_filename:
+        log_filename = os.path.join(patient_data_dir, "logs", log_filename)
+
+    ensure_output_path_exists(log_filename)
+
+    #   Create the logger object named after the filename.
+    just_the_filename = os.path.splitext(os.path.basename(log_filename))[0]
+    logger = logging.getLogger(just_the_filename)
     console_handler = logging.StreamHandler(sys.stdout)
     console_format = logging.Formatter("%(name)s - %(levelname)s - %(message)s")
     console_handler.setFormatter(console_format)
 
-    logfile_handler = logging.FileHandler(filename=log_full_filename)
+    logfile_handler = logging.FileHandler(filename=log_filename)
     logfile_format = logging.Formatter(
         "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
     )
