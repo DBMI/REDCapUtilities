@@ -1,8 +1,6 @@
 """
     Tests for the logging utility functions.
 """
-from datetime import datetime
-from fnmatch import fnmatch
 import logging
 import os
 from src.redcaputilities.logging import patient_data_directory, setup_logging
@@ -22,15 +20,11 @@ def test_logging_setup(secure_data_directory):
     # Check that file now exists.
     assert os.path.exists(target_log_file)
     #
-    # Try default filename.
+    # Try with default filename.
     #
     setup_logging()
-
-    today = datetime.today().strftime("%Y%m%d")
-    pattern = "redcap_" + today + "*.log"
-
-    # Look for file (which will have a filename containing timestamp.)
-    assert any(fnmatch(file, pattern) for file in os.listdir(logs_path))
+    target_log_file = os.path.join(logs_path, "redcap_test_logging.log")
+    assert os.path.exists(target_log_file)
 
 
 def test_patient_data_directory(secure_data_directory):
