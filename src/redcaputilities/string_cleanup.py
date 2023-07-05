@@ -153,42 +153,44 @@ def extend_street_abbreviations(street_address: str) -> str:
     -------
     full_street_address : str
     """
-    if isinstance(street_address, str):
-        #   Trim whitespace & convert to lower case.
-        street_address = street_address.strip().lower()
+    if not isinstance(street_address, str):
+        return street_address
 
-        #   https://gis.stackexchange.com/q/336221
-        abbreviations: dict = {
-            " aly": " Alley",
-            " ave": " Avenue",
-            " blvd": " Boulevard",
-            " blv": " Boulevard",
-            " cir": " Circle",
-            " ct": " Court",
-            " cv": " Cove",
-            " cyn": " Canyon",
-            " dr": " Drive",
-            " expy": " Expressway",
-            " hwy": " Highway",
-            " gln": " Glen",
-            " ln": " Lane",
-            " pkwy": " Parkway",
-            " pl": " Place",
-            " pt": " Point",
-            " rd": " Road",
-            " sq": " Square",
-            " st": " Street",
-            " ter": " Terrace",
-            " trl": " Trail",
-            " tr": " Trail",
-            " wy": " Way",
-        }
+    #   Trim whitespace & convert to lower case.
+    street_address = street_address.strip().lower()
 
-        for key in abbreviations:
-            if key in street_address:
-                #   Remove punctuation associated with abbreviation.
-                street_address = re.sub(key + r"\.", key, street_address)
-                street_address = street_address.replace(key, abbreviations[key])
-                break
+    #   https://gis.stackexchange.com/q/336221
+    abbreviations: dict = {
+        " aly": " Alley",
+        " ave": " Avenue",
+        " blvd": " Boulevard",
+        " blv": " Boulevard",
+        " cir": " Circle",
+        " ct": " Court",
+        " cv": " Cove",
+        " cyn": " Canyon",
+        " dr": " Drive",
+        " expy": " Expressway",
+        " hwy": " Highway",
+        " gln": " Glen",
+        " ln": " Lane",
+        " pkwy": " Parkway",
+        " pl": " Place",
+        " pt": " Point",
+        " rd": " Road",
+        " sq": " Square",
+        " st": " Street",
+        " ter": " Terrace",
+        " trl": " Trail",
+        " tr": " Trail",
+        " wy": " Way",
+    }
+
+    for key in abbreviations:
+        if key in street_address:
+            #   Remove punctuation associated with abbreviation.
+            street_address = re.sub(key + r"\.", key, street_address)
+            street_address = street_address.replace(key, abbreviations[key])
+            break
 
     return street_address.title()
