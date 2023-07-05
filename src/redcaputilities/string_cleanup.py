@@ -5,6 +5,7 @@ from typing import Union
 
 import dateutil.parser
 import pandas  # type: ignore[import]
+import re
 
 
 def clean_up_date(input_string: Union[str, list, pandas.Series]) -> Union[str, list]:
@@ -139,3 +140,57 @@ def clean_up_time(input_string: Union[str, list, pandas.Series]) -> Union[str, l
         cleaned_up_time = ""
 
     return cleaned_up_time
+
+
+def extend_street_abbreviations(street_address: str) -> str:
+    """Converts 'St' or 'Ave' to 'Street' and 'Avenue'
+
+    Parameters
+    ----------
+    street_address : str
+
+    Returns
+    -------
+    full_street_address : str
+    """
+    if not isinstance(street_address, str):
+        raise TypeError("Argument 'street_address' is not a str.")
+
+    #   Trim whitespace & convert to lower case.
+    street_address = street_address.strip().lower()
+
+    #   https://gis.stackexchange.com/q/336221
+    abbreviations: dict = {
+        " aly": " Alley",
+        " ave": " Avenue",
+        " blvd": " Boulevard",
+        " blv": " Boulevard",
+        " cir": " Circle",
+        " ct": " Court",
+        " cv": " Cove",
+        " cyn": " Canyon",
+        " dr": " Drive",
+        " expy": " Expressway",
+        " hwy": " Highway",
+        " gln": " Glen",
+        " ln": " Lane",
+        " pkwy": " Parkway",
+        " pl": " Place",
+        " pt": " Point",
+        " rd": " Road",
+        " sq": " Square",
+        " st": " Street",
+        " ter": " Terrace",
+        " trl": " Trail",
+        " tr": " Trail",
+        " wy": " Way",
+    }
+
+    for key in abbreviations:
+        if key in street_address:
+            #   Remove punctuation associated with abbreviation.
+            street_address = re.sub(key + r"\.", key, street_address)
+            street_address = street_address.replace(key, abbreviations[key])
+            break
+
+    return street_address.title()

@@ -7,6 +7,7 @@ from src.redcaputilities.string_cleanup import (
     clean_up_date,
     clean_up_phone,
     clean_up_time,
+    extend_street_abbreviations,
 )
 
 
@@ -62,7 +63,7 @@ def test_clean_up_date_series(dataframe):
     dataframe["dob"] = dataframe["dob"].apply(clean_up_date)
     assert dataframe["dob"][0] == date_string_proper
 
-    date_string_cleaned = clean_up_date(dataframe['dob'])
+    date_string_cleaned = clean_up_date(dataframe["dob"])
     assert date_string_cleaned == date_string_proper
 
 
@@ -94,6 +95,7 @@ def test_clean_up_phone():
     assert isinstance(phone_string_cleaned, str)
     assert len(phone_string_cleaned) == 0
 
+
 def test_clean_up_phone_list():
     phone_string_proper = "123-456-7890"
 
@@ -110,7 +112,7 @@ def test_clean_up_phone_series(dataframe):
     dataframe["phone"] = dataframe["phone"].apply(clean_up_phone)
     assert dataframe["phone"][0] == phone_string_proper
 
-    phone_string_cleaned = clean_up_phone(dataframe['phone'])
+    phone_string_cleaned = clean_up_phone(dataframe["phone"])
     assert phone_string_cleaned == phone_string_proper
 
 
@@ -170,5 +172,17 @@ def test_clean_up_time_series(dataframe):
     dataframe["time"] = dataframe["time"].apply(clean_up_time)
     assert dataframe["time"][0] == time_string_proper
 
-    time_string_cleaned = clean_up_time(dataframe['time'])
+    time_string_cleaned = clean_up_time(dataframe["time"])
     assert time_string_cleaned == time_string_proper
+
+
+def test_extend_abbreviations():
+    #   Test trailing punctuation.
+    address_cleaned = extend_street_abbreviations("123 Maple St.")
+    assert isinstance(address_cleaned, str)
+    assert address_cleaned == "123 Maple Street"
+
+    #   Test trailing whitespace.
+    address_cleaned = extend_street_abbreviations("123 Maple Blvd ")
+    assert isinstance(address_cleaned, str)
+    assert address_cleaned == "123 Maple Boulevard"
