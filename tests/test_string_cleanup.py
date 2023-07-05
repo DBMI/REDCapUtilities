@@ -190,3 +190,13 @@ def test_extend_abbreviations():
     #   Tolerate "None" values.
     address_cleaned = extend_street_abbreviations(None)
     assert address_cleaned is None
+
+    #   Ensure we're not expanding already-full names.
+    address_cleaned = extend_street_abbreviations("123 Maple Street")
+    assert isinstance(address_cleaned, str)
+    assert address_cleaned == "123 Maple Street"
+
+    #   Don't convert '4th' to '4Th', etc.
+    address_cleaned = extend_street_abbreviations("123 4th St.")
+    assert isinstance(address_cleaned, str)
+    assert address_cleaned == "123 4th Street"

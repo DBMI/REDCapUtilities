@@ -1,11 +1,11 @@
 """
     Allows other projects to easily use these string cleanup utilities.
 """
+import re
 from typing import Union
 
 import dateutil.parser
 import pandas  # type: ignore[import]
-import re
 
 
 def clean_up_date(input_string: Union[str, list, pandas.Series]) -> Union[str, list]:
@@ -161,36 +161,47 @@ def extend_street_abbreviations(street_address: str) -> str:
 
     #   https://gis.stackexchange.com/q/336221
     abbreviations: dict = {
-        " aly": " Alley",
-        " ave": " Avenue",
-        " blvd": " Boulevard",
-        " blv": " Boulevard",
-        " cir": " Circle",
-        " ct": " Court",
-        " cv": " Cove",
-        " cyn": " Canyon",
-        " dr": " Drive",
-        " expy": " Expressway",
-        " hwy": " Highway",
-        " gln": " Glen",
-        " ln": " Lane",
-        " pkwy": " Parkway",
-        " pl": " Place",
-        " pt": " Point",
-        " rd": " Road",
-        " sq": " Square",
-        " st": " Street",
-        " ter": " Terrace",
-        " trl": " Trail",
-        " tr": " Trail",
-        " wy": " Way",
+        "aly": "Alley",
+        "ave": "Avenue",
+        "blvd": "Boulevard",
+        "blv": "Boulevard",
+        "cir": "Circle",
+        "ct": "Court",
+        "cv": "Cove",
+        "cyn": "Canyon",
+        "dr": "Drive",
+        "expy": "Expressway",
+        "hwy": "Highway",
+        "gln": "Glen",
+        "ln": "Lane",
+        "pkwy": "Parkway",
+        "pl": "Place",
+        "pt": "Point",
+        "rd": "Road",
+        "sq": "Square",
+        "st": "Street",
+        "ter": "Terrace",
+        "trl": "Trail",
+        "tr": "Trail",
+        "wy": "Way",
     }
 
     for key in abbreviations:
         if key in street_address:
             #   Remove punctuation associated with abbreviation.
             street_address = re.sub(key + r"\.", key, street_address)
-            street_address = street_address.replace(key, abbreviations[key])
-            break
 
-    return street_address.title()
+            #   Replace keys if they are a full word.
+            street_address = re.sub(
+                r"\b" + key + r"\b", abbreviations[key], street_address
+            )
+
+    #   Restore to Title Case.
+    street_address = street_address.title()
+
+    #   Undo conversion of 1st, 2nd, 3rd, 4th....
+    street_address = re.sub(r"(\d)St", r"\1st", street_address)
+    street_address = re.sub(r"(\d)Nd", r"\1nd", street_address)
+    street_address = re.sub(r"(\d)Rd", r"\1rd", street_address)
+    street_address = re.sub(r"(\d)Th", r"\1th", street_address)
+    return street_address
