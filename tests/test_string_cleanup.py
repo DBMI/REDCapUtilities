@@ -186,3 +186,7 @@ def test_extend_abbreviations():
     address_cleaned = extend_street_abbreviations("123 Maple Blvd ")
     assert isinstance(address_cleaned, str)
     assert address_cleaned == "123 Maple Boulevard"
+
+    #   Tolerate "None" values.
+    address_cleaned = extend_street_abbreviations(None)
+    assert address_cleaned is None
