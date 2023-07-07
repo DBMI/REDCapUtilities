@@ -4,7 +4,7 @@ from typing import Union
 import pandas  # type: ignore[import]
 
 def clean_up_date(
-    input_string: Union[str, list, pandas.Series]
+    input_string: Union[str, list, pandas.Series, datetime]
 ) -> Union[str, list]: ...
 def clean_up_phone(
     input_string: Union[str, list, pandas.Series]
