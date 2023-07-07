@@ -2,6 +2,7 @@
 Module test_string_cleanup.py, which performs automated
 testing of the functions in string_cleanup.py
 """
+import datetime
 import pytest
 from src.redcaputilities.string_cleanup import (
     clean_up_date,
@@ -26,6 +27,13 @@ def test_clean_up_date():
 
     date_string = "January 2, 2023"
     date_string_cleaned = clean_up_date(input_string=date_string)
+    assert isinstance(date_string_cleaned, str)
+    assert date_string_cleaned == date_string_proper
+
+    #   Handle actual datetime object.
+    date_string = "01/02/2023"
+    datetime_obj = datetime.datetime.strptime(date_string, "%M/%d/%Y")
+    date_string_cleaned = clean_up_date(input_string=datetime_obj)
     assert isinstance(date_string_cleaned, str)
     assert date_string_cleaned == date_string_proper
 

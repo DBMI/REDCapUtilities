@@ -2,18 +2,21 @@
     Allows other projects to easily use these string cleanup utilities.
 """
 import re
+from datetime import datetime as datetime
 from typing import Union
 
 import dateutil.parser
 import pandas  # type: ignore[import]
 
 
-def clean_up_date(input_string: Union[str, list, pandas.Series]) -> Union[str, list]:
+def clean_up_date(
+    input_string: Union[str, list, pandas.Series, datetime]
+) -> Union[str, list]:
     """Ensures dates are in yyyy-mm-dd format.
 
     Parameters
     ----------
-    input_string : Either a string or a list of strings or a pandas.Series
+    input_string : Handles string or datetime object, either alone, in a list or as a pandas.Series
 
     Returns
     -------
@@ -33,6 +36,9 @@ def clean_up_date(input_string: Union[str, list, pandas.Series]) -> Union[str, l
 
     if isinstance(input_string, pandas.Series):
         input_string = input_string[0]
+
+    if isinstance(input_string, datetime):
+        return input_string.strftime("%Y-%m-%d")
 
     if not isinstance(input_string, str):
         raise TypeError("Argument 'input_string' is neither string nor list.")
