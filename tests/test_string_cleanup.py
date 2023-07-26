@@ -6,6 +6,7 @@ import datetime
 import pytest
 from src.redcaputilities.string_cleanup import (
     clean_up_date,
+    clean_up_email,
     clean_up_phone,
     clean_up_time,
     extend_street_abbreviations,
@@ -73,6 +74,42 @@ def test_clean_up_date_series(dataframe):
 
     date_string_cleaned = clean_up_date(dataframe["dob"])
     assert date_string_cleaned == date_string_proper
+
+
+def test_clean_up_email():
+    assert len(clean_up_email(input_string="NONE")) == 0
+    assert len(clean_up_email(input_string="none")) == 0
+    assert len(clean_up_email(input_string="None@ucsd.edu")) == 0
+
+    #   Corner case.
+    assert len(clean_up_email(input_string=None)) == 0
+
+    #   Expect to raise an error:
+    with pytest.raises(TypeError):
+        clean_up_email(input_string=12345)
+
+
+def test_clean_up_email_list():
+    email_address_proper = "nobody@example.com"
+
+    email_address_list = ["nobody@example.com", "nobody@example.com"]
+    email_addresses_cleaned = clean_up_email(input_string=email_address_list)
+    assert isinstance(email_addresses_cleaned, list)
+    assert all(
+        [
+            phone_string == email_address_proper
+            for phone_string in email_addresses_cleaned
+        ]
+    )
+
+
+def test_clean_up_email_series(dataframe):
+    email_address_proper = "nobody@example.com"
+    dataframe["email"] = dataframe["email"].apply(clean_up_email)
+    assert dataframe["email"][0] == email_address_proper
+
+    email_address_cleaned = clean_up_email(dataframe["email"])
+    assert email_address_cleaned == email_address_proper
 
 
 def test_clean_up_phone():
