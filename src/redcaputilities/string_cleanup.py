@@ -53,6 +53,45 @@ def clean_up_date(
     return cleaned_up_date
 
 
+def clean_up_email(input_string: Union[str, list, pandas.Series]) -> Union[str, list]:
+    """Removes emails like 'None' or 'none@ucsd.edu'.
+
+    Parameters
+    ----------
+    input_string : Handles string email address, either alone, in a list or as a pandas.Series
+
+    Returns
+    -------
+    cleaned_up_email : Same form as the input: string or list
+    """
+
+    if isinstance(input_string, list):
+        cleaned_up_emails = []
+
+        for this_string in input_string:
+            cleaned_up_emails.append(clean_up_email(this_string))
+
+        return cleaned_up_emails
+
+    if input_string is None:
+        return ""
+
+    if isinstance(input_string, pandas.Series):
+        input_string = input_string[0]
+
+    if not isinstance(input_string, str):
+        raise TypeError("Argument 'input_string' is neither string nor list.")
+
+    #   Remove None, NONE, etc. but not if it's part of a larger string
+    cleaned_up_email = re.sub(r"\bnone\b", "", input_string, flags=re.IGNORECASE)
+
+    #   Remove partial address like '@ucsd.edu'
+    #   (which may be left over from previous step if address was 'none@ucsd.edu'.)
+    cleaned_up_email = re.sub(r"^@.*", "", cleaned_up_email)
+
+    return cleaned_up_email
+
+
 def clean_up_phone(input_string: Union[str, list, pandas.Series]) -> Union[str, list]:
     """Ensures phone numbers are in ###-###-#### format. Detects & removes likely dummy numbers like "9999999999".
 

@@ -11,6 +11,7 @@ def fixture_dataframe() -> pandas.DataFrame:
         {
             "name": "Alice",
             "dob": "01/02/2023",
+            "email": "nobody@example.com",
             "phone": "1-123-456-7890",
             "time": "3:01:02 PM",
         },
