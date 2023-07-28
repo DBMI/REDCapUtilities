@@ -127,6 +127,11 @@ def clean_up_phone(input_string: Union[str, list, pandas.Series]) -> Union[str, 
     numeric_filter = filter(str.isdigit, input_string)
     numeric_string = "".join(numeric_filter)
 
+    #   If the original string contained letters in place of numbers,
+    #   restricting it to only digits will result in length < 10.
+    if len(numeric_string) < 10:
+        return ""
+
     if numeric_string in (
         "0000000000",
         "10000000000",
@@ -134,6 +139,10 @@ def clean_up_phone(input_string: Union[str, list, pandas.Series]) -> Union[str, 
         "19999999999",
         "1111111111",
     ):
+        return ""
+
+    #   Get rid of numbers like 619-000-0000.
+    if "0000" in numeric_string:
         return ""
 
     if numeric_string.startswith("1") and len(numeric_string) == 11:  # 1YYYXXXZZZZ

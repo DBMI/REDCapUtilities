@@ -116,8 +116,8 @@ def test_clean_up_phone():
     # Corner cases
     assert len(clean_up_phone(input_string="NONE")) == 0
     assert len(clean_up_phone(input_string="null")) == 0
-    assert len(clean_up_phone(input_string="0000000000")) == 0
-    assert clean_up_phone(input_string="SA6-1706") == "SA6-1706"
+    assert len(clean_up_phone(input_string="000-000-0000")) == 0
+    assert len(clean_up_phone(input_string="619-000-0000")) == 0
 
     phone_string_proper = "123-456-7890"
     phone_cleaned = clean_up_phone(input_string="123-456-7890")
