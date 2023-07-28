@@ -83,7 +83,9 @@ def clean_up_email(input_string: Union[str, list, pandas.Series]) -> Union[str, 
         raise TypeError("Argument 'input_string' is neither string nor list.")
 
     #   Remove None, NONE, etc. but not if it's part of a larger string
-    cleaned_up_email = re.sub(r"\bnone\b", "", input_string, flags=re.IGNORECASE)
+    cleaned_up_email = re.sub(
+        r"\b(declined|none|refused|unknown)\b", "", input_string, flags=re.IGNORECASE
+    )
 
     #   Remove partial address like '@ucsd.edu'
     #   (which may be left over from previous step if address was 'none@ucsd.edu'.)

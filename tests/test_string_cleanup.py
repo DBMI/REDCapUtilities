@@ -80,6 +80,9 @@ def test_clean_up_email():
     assert len(clean_up_email(input_string="NONE")) == 0
     assert len(clean_up_email(input_string="none")) == 0
     assert len(clean_up_email(input_string="None@ucsd.edu")) == 0
+    assert len(clean_up_email(input_string="declined@example.com")) == 0
+    assert len(clean_up_email(input_string="refused@example.com")) == 0
+    assert len(clean_up_email(input_string="unknown@nowhere.edu")) == 0
 
     #   Corner case.
     assert len(clean_up_email(input_string=None)) == 0
