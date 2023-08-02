@@ -159,6 +159,54 @@ def clean_up_phone(input_string: Union[str, list, pandas.Series]) -> Union[str, 
     return f"{prefix}-{exchange}-{rest}"
 
 
+def clean_up_string(
+    input_string: Union[str, list, pandas.Series], strings_to_ignore: list
+) -> Union[str, list]:
+    """Blank strings on the 'ignore' list.
+
+    Parameters
+    ----------
+    input_string : str string, either alone, in a list or as a pandas.Series
+    strings_to_ignore : list of strs
+
+    Returns
+    -------
+    cleaned_up_strings : Same form as the input: string, list or pandas.Series
+    """
+
+    if not isinstance(strings_to_ignore, list):
+        raise TypeError('Argument "strings_to_ignore" is not the expected list.')
+
+    if isinstance(input_string, list):
+        cleaned_up_strings = []
+
+        for this_string in input_string:
+            cleaned_up_strings.append(
+                clean_up_string(
+                    input_string=this_string, strings_to_ignore=strings_to_ignore
+                )
+            )
+
+        return cleaned_up_strings
+
+    if input_string is None:
+        return ""
+
+    if isinstance(input_string, pandas.Series):
+        input_string = input_string[0]
+
+    if not isinstance(input_string, str):
+        raise TypeError("Argument 'input_string' is neither string nor list.")
+
+    cleaned_up_string = input_string
+
+    #   Remove any string on the 'ignored' list.
+    if input_string in strings_to_ignore:
+        cleaned_up_string = ""
+
+    return cleaned_up_string
+
+
 def clean_up_time(input_string: Union[str, list, pandas.Series]) -> Union[str, list]:
     """Ensures times are in HH:MM:SS format.
 
