@@ -12,6 +12,9 @@ def clean_up_email(
 def clean_up_phone(
     input_string: Union[str, list, pandas.Series]
 ) -> Union[str, list]: ...
+def clean_up_string(
+    input_string: Union[str, list, pandas.Series], strings_to_ignore: list
+) -> Union[str, list]: ...
 def clean_up_time(
     input_string: Union[str, list, pandas.Series]
 ) -> Union[str, list]: ...
