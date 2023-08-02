@@ -32,6 +32,14 @@ def test_clean_up_strings(ignored_strings):
     assert len(string_cleaned) == 0
 
 
+def test_clean_up_strings_corner_cases(ignored_strings):
+    string_cleaned = clean_up_string(
+        input_string=1979, strings_to_ignore=ignored_strings
+    )
+    assert isinstance(string_cleaned, str)
+    assert len(string_cleaned) == 0
+
+
 def test_clean_up_string_list(ignored_strings):
     #   It's the second one that will be ignored.
     string_list = ["123 Maple Street", "234 Cherry Blvd.", "1600 Pennsylvania Ave."]

@@ -196,7 +196,7 @@ def clean_up_string(
         input_string = input_string[0]
 
     if not isinstance(input_string, str):
-        raise TypeError("Argument 'input_string' is neither string nor list.")
+        return ""
 
     cleaned_up_string = input_string
 
