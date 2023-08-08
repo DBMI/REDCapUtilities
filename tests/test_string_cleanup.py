@@ -14,51 +14,6 @@ from src.redcaputilities.string_cleanup import (
 )
 
 
-def test_clean_up_strings(ignored_strings):
-    #   Ensure 'normal' strings pass through unchanged.
-    string = "123 Maple Street"
-    string_cleaned = clean_up_string(
-        input_string=string, strings_to_ignore=ignored_strings
-    )
-    assert isinstance(string_cleaned, str)
-    assert string_cleaned == string
-
-    #   Ensure 'ignored' strings are blanked.
-    string = "345 Walnut Road"
-    string_cleaned = clean_up_string(
-        input_string=string, strings_to_ignore=ignored_strings
-    )
-    assert isinstance(string_cleaned, str)
-    assert len(string_cleaned) == 0
-
-
-def test_clean_up_strings_corner_cases(ignored_strings):
-    string_cleaned = clean_up_string(
-        input_string=1979, strings_to_ignore=ignored_strings
-    )
-    assert isinstance(string_cleaned, str)
-    assert len(string_cleaned) == 0
-
-
-def test_clean_up_string_list(ignored_strings):
-    #   It's the second one that will be ignored.
-    string_list = ["123 Maple Street", "234 Cherry Blvd.", "1600 Pennsylvania Ave."]
-    strings_cleaned = clean_up_string(
-        input_string=string_list, strings_to_ignore=ignored_strings
-    )
-    assert isinstance(strings_cleaned, list)
-    assert len(strings_cleaned[0]) > 0
-    assert len(strings_cleaned[1]) == 0
-    assert len(strings_cleaned[2]) > 0
-
-
-def test_clean_up_string_series(dataframe, ignored_strings):
-    dataframe["address"] = dataframe["address"].apply(
-        clean_up_string, strings_to_ignore=ignored_strings
-    )
-    assert len(dataframe["address"][0]) > 0
-
-
 def test_clean_up_date():
     date_string_proper = "2023-01-02"
 
@@ -123,10 +78,15 @@ def test_clean_up_date_series(dataframe):
 
 
 def test_clean_up_email():
+    #   Acceptable email passes right thru.
+    assert len(clean_up_email(input_string="nobody@example.com")) > 0
+
+    #   Nonsense emails are blanked.
     assert len(clean_up_email(input_string="NONE")) == 0
     assert len(clean_up_email(input_string="none")) == 0
     assert len(clean_up_email(input_string="None@ucsd.edu")) == 0
     assert len(clean_up_email(input_string="declined@example.com")) == 0
+    assert len(clean_up_email(input_string="refuse@example.com")) == 0
     assert len(clean_up_email(input_string="refused@example.com")) == 0
     assert len(clean_up_email(input_string="unknown@nowhere.edu")) == 0
 
@@ -208,6 +168,51 @@ def test_clean_up_phone_series(dataframe):
 
     phone_string_cleaned = clean_up_phone(dataframe["phone"])
     assert phone_string_cleaned == phone_string_proper
+
+
+def test_clean_up_strings(ignored_strings):
+    #   Ensure 'normal' strings pass through unchanged.
+    string = "123 Maple Street"
+    string_cleaned = clean_up_string(
+        input_string=string, strings_to_ignore=ignored_strings
+    )
+    assert isinstance(string_cleaned, str)
+    assert string_cleaned == string
+
+    #   Ensure 'ignored' strings are blanked.
+    string = "345 Walnut Road"
+    string_cleaned = clean_up_string(
+        input_string=string, strings_to_ignore=ignored_strings
+    )
+    assert isinstance(string_cleaned, str)
+    assert len(string_cleaned) == 0
+
+
+def test_clean_up_strings_corner_cases(ignored_strings):
+    string_cleaned = clean_up_string(
+        input_string=1979, strings_to_ignore=ignored_strings
+    )
+    assert isinstance(string_cleaned, str)
+    assert len(string_cleaned) == 0
+
+
+def test_clean_up_string_list(ignored_strings):
+    #   It's the second one that will be ignored.
+    string_list = ["123 Maple Street", "234 Cherry Blvd.", "1600 Pennsylvania Ave."]
+    strings_cleaned = clean_up_string(
+        input_string=string_list, strings_to_ignore=ignored_strings
+    )
+    assert isinstance(strings_cleaned, list)
+    assert len(strings_cleaned[0]) > 0
+    assert len(strings_cleaned[1]) == 0
+    assert len(strings_cleaned[2]) > 0
+
+
+def test_clean_up_string_series(dataframe, ignored_strings):
+    dataframe["address"] = dataframe["address"].apply(
+        clean_up_string, strings_to_ignore=ignored_strings
+    )
+    assert len(dataframe["address"][0]) > 0
 
 
 def test_clean_up_time():
