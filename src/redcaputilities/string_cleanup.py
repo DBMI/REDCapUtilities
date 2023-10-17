@@ -84,7 +84,10 @@ def clean_up_email(input_string: Union[str, list, pandas.Series]) -> Union[str, 
 
     #   Remove None, NONE, etc. but not if it's part of a larger string
     cleaned_up_email = re.sub(
-        r"\b(decline|declined|none|refuse|refused|unk|unknown)\b", "", input_string, flags=re.IGNORECASE
+        r"\b(decline|declined|none|refuse|refused|unk|unknown)\b",
+        "",
+        input_string,
+        flags=re.IGNORECASE,
     )
 
     #   Remove partial address like '@ucsd.edu'
