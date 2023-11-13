@@ -28,4 +28,4 @@ def fixture_ignored_strings() -> list:
 
 @pytest.fixture(name="secure_data_directory")
 def fixture_secure_data_directory() -> str:
-    return r"F:\AoU_v2"
+    return r"F:\dbmi.data\redcap_refresh"
