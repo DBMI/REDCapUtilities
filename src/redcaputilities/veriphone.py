@@ -119,42 +119,46 @@ class Veriphone:
         return valid
 
     def validate_phone_numbers(
-        self, input_string: Union[str, list, pandas.Series]
-    ) -> Union[str, list]:
+        self, raw_phone_numbers: Union[str, list, pandas.Series]
+    ) -> Union[str, list, pandas.Series]:
         """Process a list or series of phone numbers.
 
         Parameters
         ----------
-        input_string : Phone numbers, either one str, in a list or as a pandas.Series
+        raw_phone_numbers : Phone numbers, either one str, in a list or as a pandas.Series
 
         Returns
         -------
-        cleaned_up_phones : Same form as the input: str or list
+        validated_phone_numbers : Same form as the input: str or list or Series
         """
         if not self.__valid:
             raise RuntimeError("Unable to execute method without token.")
 
-        if isinstance(input_string, list):
-            cleaned_up_phones = []
-
-            for this_string in input_string:
-                if self.validate_one_phone_number(this_string):
-                    cleaned_up_phones.append(this_string)
-                else:
-                    cleaned_up_phones.append("")
-
-            return cleaned_up_phones
-
-        if input_string is None:
+        if raw_phone_numbers is None:
             return ""
 
-        if isinstance(input_string, pandas.Series):
-            input_string = input_string[0]
+        if isinstance(raw_phone_numbers, list):
+            validated_phone_numbers = raw_phone_numbers[:]
 
-        if not isinstance(input_string, str):
-            raise TypeError("Argument 'input_string' is neither string nor list.")
+            for index, this_string in enumerate(raw_phone_numbers):
+                if not self.validate_one_phone_number(this_string):
+                    validated_phone_numbers[index] = ""
 
-        if self.validate_one_phone_number(input_string):
-            return input_string
+            return validated_phone_numbers
+
+        if isinstance(raw_phone_numbers, pandas.Series):
+            validated_phone_numbers = pandas.Series(raw_phone_numbers)
+
+            for index, this_string in enumerate(raw_phone_numbers):
+                if not self.validate_one_phone_number(this_string):
+                    validated_phone_numbers[index] = ""
+
+            return validated_phone_numbers
+
+        if not isinstance(raw_phone_numbers, str):
+            raise TypeError("Argument 'raw_phone_numbers' is neither string nor list nor Series.")
+
+        if self.validate_one_phone_number(raw_phone_numbers):
+            return raw_phone_numbers
         else:
             return ""
