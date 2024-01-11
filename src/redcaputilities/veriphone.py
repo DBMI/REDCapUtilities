@@ -55,6 +55,7 @@ class Veriphone:
             token = config.get("VERIPHONE", "VERIPHONE_TOKEN")
             self.__valid = True
         except:
+            self.__log.error("Unable to retrieve API token.")
             pass
 
         return token
@@ -132,33 +133,47 @@ class Veriphone:
         validated_phone_numbers : Same form as the input: str or list or Series
         """
         if not self.__valid:
+            self.__log.error("Method called w/o valid token.")
             raise RuntimeError("Unable to execute method without token.")
 
         if raw_phone_numbers is None:
             return ""
 
+        num_invalid_numbers: int = 0
+        num_raw_numbers: int
+
         if isinstance(raw_phone_numbers, list):
-            validated_phone_numbers = raw_phone_numbers[:]
+            num_raw_numbers = len(raw_phone_numbers)
+            validated_phone_numbers: list = raw_phone_numbers[:]
 
-            for index, this_string in enumerate(raw_phone_numbers):
-                if not self.validate_one_phone_number(this_string):
+            for index, this_phone_number in enumerate(raw_phone_numbers):
+                if not self.validate_one_phone_number(this_phone_number):
+                    num_invalid_numbers += 1
+                    self.__log.info("Invalid number: " + this_phone_number)
+                    validated_phone_numbers[index] = ""
+            
+        elif isinstance(raw_phone_numbers, pandas.Series):
+            num_raw_numbers = len(raw_phone_numbers)
+            validated_phone_numbers: pandas.Series = pandas.Series(raw_phone_numbers)
+
+            for index, this_phone_number in enumerate(raw_phone_numbers):
+                if not self.validate_one_phone_number(this_phone_number):
+                    num_invalid_numbers += 1
+                    self.__log.info("Invalid number: " + this_phone_number)
                     validated_phone_numbers[index] = ""
 
-            return validated_phone_numbers
+        elif isinstance(raw_phone_numbers, str):
+            num_raw_numbers = 1
+            validated_phone_numbers = raw_phone_numbers
 
-        if isinstance(raw_phone_numbers, pandas.Series):
-            validated_phone_numbers = pandas.Series(raw_phone_numbers)
+            if not self.validate_one_phone_number(raw_phone_numbers):
+                num_invalid_numbers += 1
+                self.__log.info("Invalid number: " + raw_phone_numbers)
+                validated_phone_numbers = ""
 
-            for index, this_string in enumerate(raw_phone_numbers):
-                if not self.validate_one_phone_number(this_string):
-                    validated_phone_numbers[index] = ""
-
-            return validated_phone_numbers
-
-        if not isinstance(raw_phone_numbers, str):
+        else:
             raise TypeError("Argument 'raw_phone_numbers' is neither string nor list nor Series.")
 
-        if self.validate_one_phone_number(raw_phone_numbers):
-            return raw_phone_numbers
-        else:
-            return ""
+        num_valid_numbers: int = num_raw_numbers - num_invalid_numbers
+        self.__log.info(f"Validated {num_valid_numbers} phone numbers out of {num_raw_numbers}.")
+        return validated_phone_numbers
