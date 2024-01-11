@@ -6,15 +6,15 @@ import pandas
 from src.redcaputilities.veriphone import Veriphone
 
 
-def test_veriphone_instantiation(multiple_dataframe):
+def test_veriphone(multiple_dataframe):
     obj = Veriphone()
     assert isinstance(obj, Veriphone)
 
     # UCSD number ought to work.
-    # assert obj.validate_one_phone_number("858-534-2230")
+    assert obj.validate_one_phone_number("858-534-2230")
 
     # Ought to return invalid due to character "O" instead of zero.
-    # assert not obj.validate_one_phone_number("858-534-223O")
+    assert not obj.validate_one_phone_number("858-534-223O")
 
     # Try a list of two numbers, one valid, one not.
     numbers: list = ["858-534-2230", "858-534-223O"]
