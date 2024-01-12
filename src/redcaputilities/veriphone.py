@@ -80,6 +80,13 @@ class Veriphone:
             self.__log.error("Phone number provided was not a str.")
             return valid
 
+        # Trim whitespace.
+        phone_number = phone_number.strip()
+
+        # Don't bother asking about blanks.
+        if not phone_number:
+            return valid
+
         url_extended: str = (
             self.__url + "?phone=" + phone_number + "&key=" + self.__token
         )

@@ -10,8 +10,11 @@ def test_veriphone(multiple_dataframe):
     obj = Veriphone()
     assert isinstance(obj, Veriphone)
 
-    # UCSD number ought to work.
-    assert obj.validate_one_phone_number("858-534-2230")
+    # Blank should return false.
+    assert not obj.validate_one_phone_number(" ")
+
+    # UCSD number ought to work, even with trailing space.
+    assert obj.validate_one_phone_number("858-534-2230 ")
 
     # Ought to return invalid due to character "O" instead of zero.
     assert not obj.validate_one_phone_number("858-534-223O")
