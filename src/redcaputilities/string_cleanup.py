@@ -126,7 +126,9 @@ def clean_up_phone(input_string: Union[str, list, pandas.Series]) -> Union[str, 
     if not isinstance(input_string, str):
         raise TypeError("Argument 'input_string' is neither string nor list.")
 
-    if input_string.upper().strip() == "NULL" or input_string.upper().strip() == "NONE":
+    input_string = input_string.strip()
+
+    if input_string.upper() == "NULL" or input_string.upper() == "NONE":
         return ""
 
     numeric_filter = filter(str.isdigit, input_string)
