@@ -10,6 +10,7 @@ import platform
 import requests
 from typing import Union
 from redcaputilities.logging import setup_logging
+from redcaputilities.string_cleanup import clean_up_phone
 
 
 class Veriphone:
@@ -154,29 +155,42 @@ class Veriphone:
             validated_phone_numbers: list = raw_phone_numbers[:]
 
             for index, this_phone_number in enumerate(raw_phone_numbers):
+                this_phone_number = clean_up_phone(this_phone_number)
+
                 if not self.validate_one_phone_number(this_phone_number):
                     num_invalid_numbers += 1
-                    self.__log.info("Invalid number: " + this_phone_number)
                     validated_phone_numbers[index] = ""
-            
+
+                    # Don't complain about blanks.
+                    if this_phone_number:
+                        self.__log.info("Invalid number: " + this_phone_number)
+
         elif isinstance(raw_phone_numbers, pandas.Series):
             num_raw_numbers = len(raw_phone_numbers)
             validated_phone_numbers: pandas.Series = pandas.Series(raw_phone_numbers)
 
             for index, this_phone_number in enumerate(raw_phone_numbers):
+                this_phone_number = clean_up_phone(this_phone_number)
+
                 if not self.validate_one_phone_number(this_phone_number):
                     num_invalid_numbers += 1
-                    self.__log.info("Invalid number: " + this_phone_number)
                     validated_phone_numbers[index] = ""
+
+                    # Don't complain about blanks.
+                    if this_phone_number:
+                        self.__log.info("Invalid number: " + this_phone_number)
 
         elif isinstance(raw_phone_numbers, str):
             num_raw_numbers = 1
-            validated_phone_numbers = raw_phone_numbers
+            validated_phone_numbers = clean_up_phone(raw_phone_numbers)
 
             if not self.validate_one_phone_number(raw_phone_numbers):
                 num_invalid_numbers += 1
-                self.__log.info("Invalid number: " + raw_phone_numbers)
                 validated_phone_numbers = ""
+
+                # Don't complain about blanks.
+                if raw_phone_numbers:
+                    self.__log.info("Invalid number: " + raw_phone_numbers)
 
         else:
             raise TypeError("Argument 'raw_phone_numbers' is neither string nor list nor Series.")
