@@ -101,7 +101,7 @@ class Veriphone:
         # Code 400 => Input parameter missing or not valid.
         # Code 401 => Key parameter is missing or not valid.
         # https://veriphone.io/docs/v2
-        if response.status_code == 400 or response.status_code == 401 :
+        if response.status_code == 400 or response.status_code == 401:
             self.__log.error("Invalid number:", response.text)
             return False
 
@@ -124,6 +124,8 @@ class Veriphone:
 
         if "phone_valid" in response_dict:
             valid = response_dict["phone_valid"]
+        else:
+            self.__log.error("Unable to parse 'phone_valid' from '%s'", response.text)
 
         return valid
 
@@ -193,8 +195,12 @@ class Veriphone:
                     self.__log.info("Invalid number: " + raw_phone_numbers)
 
         else:
-            raise TypeError("Argument 'raw_phone_numbers' is neither string nor list nor Series.")
+            raise TypeError(
+                "Argument 'raw_phone_numbers' is neither string nor list nor Series."
+            )
 
         num_valid_numbers: int = num_raw_numbers - num_invalid_numbers
-        self.__log.info(f"Validated {num_valid_numbers} phone numbers out of {num_raw_numbers}.")
+        self.__log.info(
+            f"Validated {num_valid_numbers} phone numbers out of {num_raw_numbers}."
+        )
         return validated_phone_numbers
