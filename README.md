@@ -6,7 +6,7 @@
 
 ---
 
-**Documentation**: [https://github.com/DBMI/REDCapUtilities](https://github.com/DBMI/REDCapUtilities)
+**Documentation**: [https://dbmi.github.io/REDCapUtilities/](https://dbmi.github.io/REDCapUtilities/)
 
 **Source Code**: [https://github.com/DBMI/REDCapUtilities](https://github.com/DBMI/REDCapUtilities)
 
