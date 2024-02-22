@@ -1,12 +1,54 @@
 """
     Allows other projects to easily use these string cleanup utilities.
 """
+
 import re
 from datetime import datetime as datetime
 from typing import Union
 
+import re
 import dateutil.parser
 import pandas  # type: ignore[import]
+
+
+def clean_up_address(input_string: Union[str, list, pandas.Series]) -> Union[str, list]:
+    """Changes P.O. box to PO Box.
+
+    Parameters
+    ----------
+    input_string : address, either alone, in a list or as a pandas.Series
+
+    Returns
+    -------
+    cleaned_up_address : Same form as the input: string or list
+    """
+
+    if isinstance(input_string, list):
+        cleaned_up_addresses = []
+
+        for this_string in input_string:
+            cleaned_up_addresses.append(clean_up_address(this_string))
+
+        return cleaned_up_addresses
+
+    if input_string is None:
+        return ""
+
+    if isinstance(input_string, pandas.Series):
+        input_string = input_string[0]
+
+    if not isinstance(input_string, str):
+        raise TypeError("Argument 'input_string' is neither string nor list.")
+
+    #   Convert P.O. box to PO Box
+    cleaned_up_address: str = re.sub(
+        r"P\. ?O\. box",
+        "PO Box",
+        input_string,
+        flags=re.IGNORECASE,
+    )
+
+    return cleaned_up_address
 
 
 def clean_up_date(

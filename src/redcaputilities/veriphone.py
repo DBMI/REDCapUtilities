@@ -1,6 +1,7 @@
 """
 Module: contains the Veriphone class, which handles querying the Veriphone online service.
 """
+
 import configparser
 import json
 import logging
