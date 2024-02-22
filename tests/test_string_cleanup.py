@@ -22,6 +22,11 @@ def test_clean_up_address():
     assert isinstance(address_cleaned, str)
     assert address_cleaned == address_proper
 
+    address_raw: str = "Po box 1234"
+    address_cleaned: str = clean_up_address(address_raw)
+    assert isinstance(address_cleaned, str)
+    assert address_cleaned == address_proper
+
     # Ensure ordinary addresses aren't changed.
     address_raw = "123 Maple Street"
     address_cleaned = clean_up_address(address_raw)

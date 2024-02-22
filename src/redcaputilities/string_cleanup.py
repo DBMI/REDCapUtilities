@@ -40,9 +40,9 @@ def clean_up_address(input_string: Union[str, list, pandas.Series]) -> Union[str
     if not isinstance(input_string, str):
         raise TypeError("Argument 'input_string' is neither string nor list.")
 
-    #   Convert P.O. box to PO Box
+    #   Convert 'P.O. box' or 'Po box' to 'PO Box'.
     cleaned_up_address: str = re.sub(
-        r"P\. ?O\. box",
+        r"P\.? ?O\.? box",
         "PO Box",
         input_string,
         flags=re.IGNORECASE,
