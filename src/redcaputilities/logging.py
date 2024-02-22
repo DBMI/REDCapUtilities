@@ -1,6 +1,7 @@
 """
     Allows other projects to easily use logging.
 """
+
 import inspect
 import logging
 import logging.handlers

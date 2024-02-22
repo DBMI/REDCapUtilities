@@ -3,6 +3,9 @@ from typing import Union
 
 import pandas  # type: ignore[import]
 
+def clean_up_address(
+    input_string: Union[str, list, pandas.Series]
+) -> Union[str, list]: ...
 def clean_up_date(
     input_string: Union[str, list, pandas.Series, datetime]
 ) -> Union[str, list]: ...

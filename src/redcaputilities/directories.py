@@ -1,6 +1,7 @@
 """
     Allows other projects to easily use directory methods.
 """
+
 import os
 
 
