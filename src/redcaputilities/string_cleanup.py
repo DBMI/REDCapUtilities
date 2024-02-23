@@ -40,13 +40,8 @@ def clean_up_address(input_string: Union[str, list, pandas.Series]) -> Union[str
     if not isinstance(input_string, str):
         raise TypeError("Argument 'input_string' is neither string nor list.")
 
-    #   Convert 'P.O. box' or 'Po box' to 'PO Box'.
-    cleaned_up_address: str = re.sub(
-        r"P\.? ?O\.? box",
-        "PO Box",
-        input_string,
-        flags=re.IGNORECASE,
-    )
+    cleaned_up_address: str = __extend_street_abbreviations(input_string)
+    cleaned_up_address = __fix_po_box(cleaned_up_address)
 
     return cleaned_up_address
 
@@ -293,7 +288,7 @@ def clean_up_time(input_string: Union[str, list, pandas.Series]) -> Union[str, l
     return cleaned_up_time
 
 
-def extend_street_abbreviations(street_address: str) -> str:
+def __extend_street_abbreviations(street_address: str) -> str:
     """Converts 'St' or 'Ave' to 'Street' and 'Avenue'
 
     Parameters
@@ -356,3 +351,32 @@ def extend_street_abbreviations(street_address: str) -> str:
     street_address = re.sub(r"(\d)Rd", r"\1rd", street_address)
     street_address = re.sub(r"(\d)Th", r"\1th", street_address)
     return street_address
+
+
+def __fix_po_box(street_address: str) -> str:
+    """Changes P.O. box to PO Box.
+
+    Parameters
+    ----------
+    street_address : str address
+
+    Returns
+    -------
+    cleaned_up_address : str
+    """
+
+    if street_address is None:
+        return ""
+
+    if not isinstance(street_address, str):
+        raise TypeError("Argument 'street_address' is not expected string.")
+
+    #   Convert 'P.O. box' or 'Po box' to 'PO Box'.
+    cleaned_up_address: str = re.sub(
+        r"P\.? ?O\.? box",
+        "PO Box",
+        street_address,
+        flags=re.IGNORECASE,
+    )
+
+    return cleaned_up_address

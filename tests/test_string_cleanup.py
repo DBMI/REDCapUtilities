@@ -11,11 +11,13 @@ from src.redcaputilities.string_cleanup import (
     clean_up_phone,
     clean_up_string,
     clean_up_time,
-    extend_street_abbreviations,
 )
 
 
 def test_clean_up_address():
+    #
+    #   Convert 'P.O. Box' to 'PO Box'
+    #
     address_proper: str = "PO Box 1234"
     address_raw: str = "P.O. box 1234"
     address_cleaned: str = clean_up_address(address_raw)
@@ -32,6 +34,33 @@ def test_clean_up_address():
     address_cleaned = clean_up_address(address_raw)
     assert isinstance(address_cleaned, str)
     assert address_cleaned == address_raw
+    #
+    #   Extend 'St' to 'Street'
+    #
+    #   Test trailing punctuation.
+    address_cleaned = clean_up_address("123 Maple St.")
+    assert isinstance(address_cleaned, str)
+    assert address_cleaned == "123 Maple Street"
+
+    #   Test trailing whitespace.
+    address_cleaned = clean_up_address("123 Maple Blvd ")
+    assert isinstance(address_cleaned, str)
+    assert address_cleaned == "123 Maple Boulevard"
+
+    #   Tolerate "None" values.
+    address_cleaned = clean_up_address(None)
+    assert isinstance(address_cleaned, str)
+    assert len(address_cleaned) == 0
+
+    #   Ensure we're not expanding already-full names.
+    address_cleaned = clean_up_address("123 Maple Street")
+    assert isinstance(address_cleaned, str)
+    assert address_cleaned == "123 Maple Street"
+
+    #   Don't convert '4th' to '4Th', etc.
+    address_cleaned = clean_up_address("123 4th St.")
+    assert isinstance(address_cleaned, str)
+    assert address_cleaned == "123 4th Street"
 
 
 def test_clean_up_date():
@@ -293,29 +322,3 @@ def test_clean_up_time_series(dataframe):
 
     time_string_cleaned = clean_up_time(dataframe["time"])
     assert time_string_cleaned == time_string_proper
-
-
-def test_extend_abbreviations():
-    #   Test trailing punctuation.
-    address_cleaned = extend_street_abbreviations("123 Maple St.")
-    assert isinstance(address_cleaned, str)
-    assert address_cleaned == "123 Maple Street"
-
-    #   Test trailing whitespace.
-    address_cleaned = extend_street_abbreviations("123 Maple Blvd ")
-    assert isinstance(address_cleaned, str)
-    assert address_cleaned == "123 Maple Boulevard"
-
-    #   Tolerate "None" values.
-    address_cleaned = extend_street_abbreviations(None)
-    assert address_cleaned is None
-
-    #   Ensure we're not expanding already-full names.
-    address_cleaned = extend_street_abbreviations("123 Maple Street")
-    assert isinstance(address_cleaned, str)
-    assert address_cleaned == "123 Maple Street"
-
-    #   Don't convert '4th' to '4Th', etc.
-    address_cleaned = extend_street_abbreviations("123 4th St.")
-    assert isinstance(address_cleaned, str)
-    assert address_cleaned == "123 4th Street"
