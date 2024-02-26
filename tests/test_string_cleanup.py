@@ -8,6 +8,7 @@ from src.redcaputilities.string_cleanup import (
     clean_up_address,
     clean_up_date,
     clean_up_email,
+    clean_up_language,
     clean_up_phone,
     clean_up_string,
     clean_up_time,
@@ -168,6 +169,20 @@ def test_clean_up_email_series(dataframe):
 
     email_address_cleaned = clean_up_email(dataframe["email"])
     assert email_address_cleaned == email_address_proper
+
+
+def test_clean_up_language():
+    language_cleaned: str = clean_up_language('English')
+    assert(isinstance(language_cleaned, str))
+    assert(language_cleaned == 'English')
+
+    language_cleaned = clean_up_language('Other')
+    assert (isinstance(language_cleaned, str))
+    assert (len(language_cleaned) == 0)
+
+    language_cleaned = clean_up_language('Unknown.')
+    assert (isinstance(language_cleaned, str))
+    assert (len(language_cleaned) == 0)
 
 
 def test_clean_up_phone():

@@ -134,6 +134,43 @@ def clean_up_email(input_string: Union[str, list, pandas.Series]) -> Union[str, 
     return cleaned_up_email
 
 
+def clean_up_language(input_string: Union[str, list, pandas.Series]) -> Union[str, list]:
+    """Changes 'Other' or 'Unknown.' to NULL.
+
+    Parameters
+    ----------
+    input_string : language, either alone, in a list or as a pandas.Series
+
+    Returns
+    -------
+    cleaned_up_language : Same form as the input: string or list
+    """
+
+    if isinstance(input_string, list):
+        cleaned_up_languages = []
+
+        for this_string in input_string:
+            cleaned_up_languages.append(clean_up_address(this_string))
+
+        return cleaned_up_languages
+
+    if input_string is None:
+        return ""
+
+    if isinstance(input_string, pandas.Series):
+        input_string = input_string[0]
+
+    if not isinstance(input_string, str):
+        raise TypeError("Argument 'input_string' is neither string nor list.")
+
+    cleaned_up_language: str = ""
+
+    if input_string != 'Other' and input_string != 'Unknown.':
+        cleaned_up_language = input_string
+
+    return cleaned_up_language
+
+
 def clean_up_phone(input_string: Union[str, list, pandas.Series]) -> Union[str, list]:
     """Ensures phone numbers are in ###-###-#### format. Detects & removes likely dummy numbers like "9999999999".
 
