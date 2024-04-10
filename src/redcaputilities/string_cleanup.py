@@ -11,41 +11,6 @@ import dateutil.parser
 import pandas  # type: ignore[import]
 
 
-def clean_up_address(input_string: Union[str, list, pandas.Series]) -> Union[str, list]:
-    """Changes P.O. box to PO Box.
-
-    Parameters
-    ----------
-    input_string : address, either alone, in a list or as a pandas.Series
-
-    Returns
-    -------
-    cleaned_up_address : Same form as the input: string or list
-    """
-
-    if isinstance(input_string, list):
-        cleaned_up_addresses = []
-
-        for this_string in input_string:
-            cleaned_up_addresses.append(clean_up_address(this_string))
-
-        return cleaned_up_addresses
-
-    if input_string is None:
-        return ""
-
-    if isinstance(input_string, pandas.Series):
-        input_string = input_string[0]
-
-    if not isinstance(input_string, str):
-        raise TypeError("Argument 'input_string' is neither string nor list.")
-
-    cleaned_up_address: str = __extend_street_abbreviations(input_string)
-    cleaned_up_address = __fix_po_box(cleaned_up_address)
-
-    return cleaned_up_address
-
-
 def clean_up_date(
     input_string: Union[str, list, pandas.Series, datetime]
 ) -> Union[str, list]:

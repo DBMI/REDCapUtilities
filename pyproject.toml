@@ -32,7 +32,7 @@ disable_error_code = ["call-arg", "call-overload", "var-annotated"]
 
 [tool.poetry]
 name = "REDCapUtilities"
-version = "1.1.9"
+version = "1.2.0"
 description = "Collection of functions used across more than one project."
 authors = [
     "Kevin J. Delaney <kjdelaney@ucsd.edu>",
@@ -81,6 +81,7 @@ mkdocs = "*"
 mkdocstrings = "*"
 mkdocs-material = "*"
 mypy = "*"
+openpyxl = "*"
 pep8-naming = "*"
 pre-commit = "*"
 pymdown-extensions = "*"
@@ -93,6 +94,7 @@ sphinx = "*"
 sphinx_markdown_builder = "*"
 tryceratops = "*"
 typing = "*"
+usaddress = "*"
 wheel = "*"
 
 [tool.pylint.format]
