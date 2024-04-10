@@ -238,7 +238,8 @@ class AddressStandardizer:
             parsed_address: tuple = usaddress.tag(address)
             parsed_address_dict: collections.OrderedDict = parsed_address[0]
         except usaddress.RepeatedLabelError:
-            print(address)
+            # Then we can't parse this address.
+            return address.strip().upper()
 
         # parsed_address: list = usaddress.parse(address)
         # parsed_address_dict = {}
