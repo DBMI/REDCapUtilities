@@ -198,7 +198,9 @@ class AddressStandardizer:
 
         return text.upper()
 
-    def standardize_street_address(self, address: Union[str, list, pandas.Series]) -> Union[str, list, pandas.Series]:
+    def standardize_street_address(
+        self, address: Union[str, list, pandas.Series]
+    ) -> Union[str, list, pandas.Series]:
         """Standardizes street address according to USPS rules.
 
         Parameters
@@ -213,7 +215,9 @@ class AddressStandardizer:
             addresses_standardized: list = []
 
             for this_address in address:
-                addresses_standardized.append(self.standardize_street_address(this_address))
+                addresses_standardized.append(
+                    self.standardize_street_address(this_address)
+                )
 
             return addresses_standardized
 
@@ -221,15 +225,26 @@ class AddressStandardizer:
             addresses_standardized: list = []
 
             for this_address in address:
-                addresses_standardized.append(self.standardize_street_address(this_address))
+                addresses_standardized.append(
+                    self.standardize_street_address(this_address)
+                )
 
             return pandas.Series(addresses_standardized)
 
         if not isinstance(address, str):
             raise TypeError("Input 'address' is not the expected string.")
 
-        parsed_address: tuple = usaddress.tag(address)
-        parsed_address_dict: collections.OrderedDict = parsed_address[0]
+        try:
+            parsed_address: tuple = usaddress.tag(address)
+            parsed_address_dict: collections.OrderedDict = parsed_address[0]
+        except usaddress.RepeatedLabelError:
+            print(address)
+
+        # parsed_address: list = usaddress.parse(address)
+        # parsed_address_dict = {}
+
+        # for a, b in parsed_address:
+        #    parsed_address_dict.setdefault(b, a)
 
         # Handle PO Box first.
         if "USPSBoxType" in parsed_address_dict and "USPSBoxID" in parsed_address_dict:

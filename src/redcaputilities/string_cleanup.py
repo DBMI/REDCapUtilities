@@ -99,7 +99,9 @@ def clean_up_email(input_string: Union[str, list, pandas.Series]) -> Union[str, 
     return cleaned_up_email
 
 
-def clean_up_language(input_string: Union[str, list, pandas.Series]) -> Union[str, list]:
+def clean_up_language(
+    input_string: Union[str, list, pandas.Series]
+) -> Union[str, list]:
     """Changes 'Other' or 'Unknown.' to NULL.
 
     Parameters
@@ -130,7 +132,7 @@ def clean_up_language(input_string: Union[str, list, pandas.Series]) -> Union[st
 
     cleaned_up_language: str = ""
 
-    if input_string != 'Other' and input_string != 'Unknown.':
+    if input_string != "Other" and input_string != "Unknown.":
         cleaned_up_language = input_string
 
     return cleaned_up_language
