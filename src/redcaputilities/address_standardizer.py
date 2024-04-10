@@ -238,13 +238,8 @@ class AddressStandardizer:
             parsed_address: tuple = usaddress.tag(address)
             parsed_address_dict: collections.OrderedDict = parsed_address[0]
         except usaddress.RepeatedLabelError:
-            print(address)
-
-        # parsed_address: list = usaddress.parse(address)
-        # parsed_address_dict = {}
-
-        # for a, b in parsed_address:
-        #    parsed_address_dict.setdefault(b, a)
+            # Then we can't parse this address.
+            return address.strip().upper()
 
         # Handle PO Box first.
         if "USPSBoxType" in parsed_address_dict and "USPSBoxID" in parsed_address_dict:
