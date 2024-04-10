@@ -232,7 +232,8 @@ class AddressStandardizer:
             return pandas.Series(addresses_standardized)
 
         if not isinstance(address, str):
-            raise TypeError("Input 'address' is not the expected string.")
+            # Return empty string.
+            return ""
 
         try:
             parsed_address: tuple = usaddress.tag(address)
