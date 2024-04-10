@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='REDCapUtilities',
-    version='1.2.4',
+    version='1.2.5',
     packages=['redcaputilities'],
     package_dir={'': 'src'},
     url='https://github.com/DBMI/REDCapUtilities',
