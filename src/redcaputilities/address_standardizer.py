@@ -241,12 +241,6 @@ class AddressStandardizer:
             # Then we can't parse this address.
             return address.strip().upper()
 
-        # parsed_address: list = usaddress.parse(address)
-        # parsed_address_dict = {}
-
-        # for a, b in parsed_address:
-        #    parsed_address_dict.setdefault(b, a)
-
         # Handle PO Box first.
         if "USPSBoxType" in parsed_address_dict and "USPSBoxID" in parsed_address_dict:
             return (
