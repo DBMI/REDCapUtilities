@@ -198,7 +198,7 @@ class AddressStandardizer:
 
         return text.upper()
 
-    def standardize_street_address(self, address: Union[str, list, pandas.Series]) -> Union[str, list]:
+    def standardize_street_address(self, address: Union[str, list, pandas.Series]) -> Union[str, list, pandas.Series]:
         """Standardizes street address according to USPS rules.
 
         Parameters
@@ -207,7 +207,7 @@ class AddressStandardizer:
 
         Returns
         -------
-        address_standardized : Union[str, list]
+        address_standardized : Union[str, list, pandas.Series]
         """
         if isinstance(address, list):
             addresses_standardized: list = []
@@ -216,6 +216,14 @@ class AddressStandardizer:
                 addresses_standardized.append(self.standardize_street_address(this_address))
 
             return addresses_standardized
+
+        if isinstance(address, pandas.Series):
+            addresses_standardized: list = []
+
+            for this_address in address:
+                addresses_standardized.append(self.standardize_street_address(this_address))
+
+            return pandas.Series(addresses_standardized)
 
         if not isinstance(address, str):
             raise TypeError("Input 'address' is not the expected string.")
