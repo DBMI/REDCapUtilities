@@ -117,7 +117,7 @@ def clean_up_language(
         cleaned_up_languages = []
 
         for this_string in input_string:
-            cleaned_up_languages.append(clean_up_address(this_string))
+            cleaned_up_languages.append(clean_up_language(this_string))
 
         return cleaned_up_languages
 

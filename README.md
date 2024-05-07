@@ -11,8 +11,33 @@
 **Source Code**: [https://github.com/DBMI/REDCapUtilities](https://github.com/DBMI/REDCapUtilities)
 
 ---
+## Purpose
 
-Collection of functions used across more than one project.
+The REDCapUtilities library contains functions used across more than one project.
+
+### Address Standardization
+A patient may have their address listed in one database as _123 N Apple St #234_ and in another database as _123 North Apple Street Apt 234_. To help recognize these strings as the same address, the `AddressStandardizer` class uses the Python package [usaddress](https://pypi.org/project/usaddress/) to break up an address string into its components (like _AddressNumber_, _StreetNamePreDirectional_, etc.), then applies the [US Postal service rules](https://pe.usps.com/text/pub28/welcome.htm). that (for example) turn "North" into "N" and "Street" into "ST".
+
+
+### String Cleanup
+#### Dates
+Patient birth dates could be recorded in any number of formats, making it difficult for software to recognize that "2001-02-03" is the same as "February 3, 2001." The method `clean_up_date` uses the Python package `dateutil.parser` to parse suspected date/time strings into `datetime` objects, then convert them to `%Y-%m-%d` format.
+
+#### Email Addresses
+Sometimes patient email address fields contain notes like "declined" or "unknown". It's misleading to say two patient records have matching email addresses when really both say "unknown". The method `clean_up_email` removes notes like "declined", "none" etc. to make later email comparisons valid.
+
+#### Language
+If a patient's preferred language field says "Other" or "Unknown", we'd rather it be blank. The method `clean_up_language` converts these nonsense values to blank strings.
+
+#### Phone Number
+The method `clean_up_phone`:
+- removes non-numeric characters
+- removes nonsense values like "NONE", "0000000000" or "619-000-0000"
+- strips off leading "1" characters (as in "1-629-555-1212")
+- rebuilds the number in ###-###-#### format.
+
+#### Time
+The method `clean_up_time` uses the Python package `dateutil.parser` to parse suspected date/time strings into `datetime` objects, then convert them to `%H:%M:%S` format.
 
 ## Installation
 
