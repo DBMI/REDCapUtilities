@@ -72,7 +72,7 @@ def setup_logging(log_filename: Union[str, None] = None) -> logging.Logger:
 
     # New log for every day; discard logs > 30 days old.
     logfile_handler = logging.handlers.TimedRotatingFileHandler(
-        filename=log_filename,
+        filename=f"redcap_{calling_module}.log",
         when="D",
         interval=1,
         backupCount=30,
