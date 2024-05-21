@@ -32,7 +32,7 @@ disable_error_code = ["call-arg", "call-overload", "var-annotated"]
 
 [tool.poetry]
 name = "REDCapUtilities"
-version = "1.2.6"
+version = "1.2.7"
 description = "Collection of functions used across more than one project."
 authors = [
     "Kevin J. Delaney <kjdelaney@ucsd.edu>",
