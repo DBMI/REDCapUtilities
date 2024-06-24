@@ -39,6 +39,11 @@ def test_address_standardization():
     assert isinstance(address_standardized, str)
     assert address_standardized == "PO BOX 1234"
 
+    address_raw = "P O Box 1234"
+    address_standardized = addr_stndzer.standardize_street_address(address_raw)
+    assert isinstance(address_standardized, str)
+    assert address_standardized == "PO BOX 1234"
+
 
 def test_address_standardization_list():
     addr_stndzer = AddressStandardizer()
