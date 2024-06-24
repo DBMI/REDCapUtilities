@@ -245,8 +245,7 @@ class AddressStandardizer:
         # Handle PO Box first.
         if "USPSBoxType" in parsed_address_dict and "USPSBoxID" in parsed_address_dict:
             return (
-                self.__clean_text(parsed_address_dict["USPSBoxType"])
-                + " "
+                "PO BOX "
                 + self.__clean_text(parsed_address_dict["USPSBoxID"])
             )
 
