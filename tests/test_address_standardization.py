@@ -34,6 +34,16 @@ def test_address_standardization():
     assert isinstance(address_standardized, str)
     assert address_standardized == "123 APPLE BLVD"
 
+    address_raw = "123Apple Boulevard"
+    address_standardized = addr_stndzer.standardize_street_address(address_raw)
+    assert isinstance(address_standardized, str)
+    assert address_standardized == "123 APPLE BLVD"
+
+    address_raw = "12N Lakeside Drive"
+    address_standardized = addr_stndzer.standardize_street_address(address_raw)
+    assert isinstance(address_standardized, str)
+    assert address_standardized == "12N LAKESIDE DR"
+
     address_raw = "P.O. Box 1234"
     address_standardized = addr_stndzer.standardize_street_address(address_raw)
     assert isinstance(address_standardized, str)
