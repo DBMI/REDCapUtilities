@@ -3,6 +3,7 @@ import usaddress
 import os.path
 from importlib import resources  # type: ignore[import]
 import pandas  # type: ignore[import]
+import re
 import string
 from typing import Union
 
@@ -94,6 +95,22 @@ class AddressStandardizer:
             occ_type = occupancy_type
 
         return occ_type
+
+    def __break_up_block(self, text: str) -> str:
+        """Inserts space into malformed addresses like '123Apple' ==> '123 Apple'
+
+        Parameters
+        ----------
+        text : str
+
+        Returns
+        -------
+        cleaned : str
+        """
+        pattern:str = r"^(\d+)([^\d\s]{2,}.+)"
+        replacement: str =r"\1 \2"
+        cleaned: str = re.sub(pattern, replacement, text)
+        return cleaned
 
     def __build_direction_abbreviations_dict(self) -> dict:
         """Builds a dictionary from an Excel spreadsheet that converts 'NorthWest' to 'NW'.
@@ -234,6 +251,9 @@ class AddressStandardizer:
         if not isinstance(address, str):
             # Return empty string.
             return ""
+
+        # Break up numerical and text parts. Turn '123Maple' into '123 Maple' for proper parsing.
+        address = self.__break_up_block(address)
 
         try:
             parsed_address: tuple = usaddress.tag(address)
