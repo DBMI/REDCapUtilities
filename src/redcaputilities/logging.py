@@ -1,8 +1,10 @@
 """
     Allows other projects to easily use logging.
 """
+
 import inspect
 import logging
+import logging.handlers
 import os
 import sys
 from typing import Union
@@ -22,7 +24,7 @@ def patient_data_directory() -> str:
     patient_data_dir = os.getenv("PATIENT_DATA")
 
     if not patient_data_dir:  # pragma: no cover
-        patient_data_dir = r"F:\AoU_v2"
+        patient_data_dir = r"F:\dbmi.data\redcap_refresh"
 
     return patient_data_dir
 
@@ -68,9 +70,17 @@ def setup_logging(log_filename: Union[str, None] = None) -> logging.Logger:
     console_format = logging.Formatter("%(name)s - %(levelname)s - %(message)s")
     console_handler.setFormatter(console_format)
 
-    logfile_handler = logging.FileHandler(filename=log_filename)
+    # New log for every day; discard logs > 30 days old.
+    logfile_handler = logging.handlers.TimedRotatingFileHandler(
+        filename=log_filename,
+        when="D",
+        interval=1,
+        backupCount=30,
+        encoding="utf-8",
+        delay=False,
+    )
     logfile_format = logging.Formatter(
-        "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+        fmt="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
     )
     logfile_handler.setFormatter(logfile_format)
 

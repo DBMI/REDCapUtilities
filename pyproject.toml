@@ -3,7 +3,7 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.black]
-target-version = ["py38", "py39"]
+target-version = ["py312"]
 include = '\.pyi?$'
 
 [tool.coverage.report]
@@ -32,7 +32,7 @@ disable_error_code = ["call-arg", "call-overload", "var-annotated"]
 
 [tool.poetry]
 name = "REDCapUtilities"
-version = "0.3.6"
+version = "1.3.0"
 description = "Collection of functions used across more than one project."
 authors = [
     "Kevin J. Delaney <kjdelaney@ucsd.edu>",
@@ -51,8 +51,6 @@ classifiers = [
   "Programming Language :: Python",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3.7",
-  "Programming Language :: Python :: 3.8",
-  "Programming Language :: Python :: 3.9",
   "Topic :: Software Development :: Libraries :: Python Modules",
   "Typing :: Typed",
 ]
@@ -63,10 +61,11 @@ packages = [
 
 [tool.poetry.dependencies]
 python = ">=3.7.1, <4.0"
-pandas = "1.3.5"
+pandas = ">=1.3.5"
 python-dateutil = "^2.8.2"
+requests = ">=2.31.0"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 autoflake = "*"
 black = "*"
 flake8 = "*"
@@ -82,6 +81,7 @@ mkdocs = "*"
 mkdocstrings = "*"
 mkdocs-material = "*"
 mypy = "*"
+openpyxl = "*"
 pep8-naming = "*"
 pre-commit = "*"
 pymdown-extensions = "*"
@@ -90,10 +90,12 @@ pytest-github-actions-annotate-failures = "*"
 pytest-cov = "*"
 python-kacl = "*"
 pyupgrade = "*"
+setuptools = "*"
 sphinx = "*"
 sphinx_markdown_builder = "*"
 tryceratops = "*"
 typing = "*"
+usaddress = "*"
 wheel = "*"
 
 [tool.pylint.format]
