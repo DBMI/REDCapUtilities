@@ -1,28 +1,28 @@
 from datetime import datetime as datetime
-from typing import Union
+from typing import Any, Union
 
-import pandas  # type: ignore[import]
+import pandas
 
 def clean_up_address(
-    input_string: Union[str, list, pandas.Series]
+    input_string: str | list[Any] | Any
 ) -> Union[str, list]: ...
 def clean_up_date(
-    input_string: Union[str, list, pandas.Series, datetime]
+    input_string: str | list[Any] | Any | datetime
 ) -> Union[str, list]: ...
 def clean_up_email(
-    input_string: Union[str, list, pandas.Series]
+    input_string: str | list[Any] | Any
 ) -> Union[str, list]: ...
 def clean_up_language(
-    input_string: Union[str, list, pandas.Series]
+    input_string: str | list[Any] | Any
 ) -> Union[str, list]: ...
 def clean_up_phone(
-    input_string: Union[str, list, pandas.Series]
+    input_string: str | list[Any] | Any
 ) -> Union[str, list]: ...
 def clean_up_string(
-    input_string: Union[str, list, pandas.Series], strings_to_ignore: list
+    input_string: str | list[Any] | Any, strings_to_ignore: list
 ) -> Union[str, list]: ...
 def clean_up_time(
-    input_string: Union[str, list, pandas.Series]
+    input_string: str | list[Any] | Any
 ) -> Union[str, list]: ...
 def __extend_street_abbreviations(street_address: str) -> str: ...
 def __fix_po_box(street_address: str) -> str: ...
