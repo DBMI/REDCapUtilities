@@ -1,10 +1,4 @@
-import collections
-import usaddress
-import os.path
-from importlib import resources  # type: ignore[import]
-import pandas  # type: ignore[import]
-import string
-from typing import Union
+from typing import Any, Union
 
 class AddressStandardizer:
     def __init__(self) -> None:
@@ -21,5 +15,5 @@ class AddressStandardizer:
     def __build_street_abbreviations_dict(self) -> dict: ...
     def __clean_text(self, text: str) -> str: ...
     def standardize_street_address(
-        self, address: Union[str, list, pandas.Series]
+        self, address: str | list[Any] | Any
     ) -> Union[str, list]: ...
