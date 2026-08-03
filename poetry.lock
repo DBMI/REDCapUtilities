@@ -597,19 +597,19 @@ eradicate = ">=2.0,<3.0"
 flake8 = ">5"
 
 [[package]]
-name = "flake8-logging-format"
-version = "2024.24.12"
-description = ""
+name = "flake8-logging"
+version = "1.8.0"
+description = "A Flake8 plugin that checks for issues using the standard library logging module."
 optional = false
-python-versions = "*"
+python-versions = ">=3.9"
 groups = ["dev"]
 files = [
-    {file = "flake8_logging_format-2024.24.12-py3-none-any.whl", hash = "sha256:7d93c2107354b10a05b1a0d8ccd3a9bfb793aee108007765114c958a7541d674"},
+    {file = "flake8_logging-1.8.0-py3-none-any.whl", hash = "sha256:bb3fcf0fb2b4f35d7ebb0c1dc02af16db00c7c858c5a018370172e939dd6f225"},
+    {file = "flake8_logging-1.8.0.tar.gz", hash = "sha256:765046763d44d1dc051071c047fe0fa056d71a524505207c3fbdc47532e7d8af"},
 ]
 
-[package.extras]
-lint = ["flake8"]
-test = ["PyHamcrest", "pytest", "pytest-cov"]
+[package.dependencies]
+flake8 = ">=3,<3.2 || >3.2"
 
 [[package]]
 name = "ghp-import"
@@ -2378,4 +2378,4 @@ packaging = ">=24.0"
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11, <4.0"
-content-hash = "c239f888ab1261be25fd7069f9044d05217182c679e2ecc9fc204d42a7e771c3"
+content-hash = "d161af01a4740482d86109eb353bb911ee8dca46065e61254bf89ba39ec652e1"
