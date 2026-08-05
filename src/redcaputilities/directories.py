@@ -20,16 +20,16 @@ def ensure_output_path_exists(target_filename: str = "") -> None:
 
     try:
         target_path = os.path.dirname(target_filename)
-
-        if not target_path:  # pragma: no cover
-            raise RuntimeError(
-                f"Target path cannot be determined from filename '{target_filename}'."
-            )
-
-        if not os.path.exists(target_path):
-            os.makedirs(target_path)
     except OSError as create_path_error:  # pragma: no cover
         raise OSError(
             f"Unable to create path: '{target_path}' "
             + f"because{str(create_path_error)}."
         ) from create_path_error
+
+    if not target_path:  # pragma: no cover
+        raise RuntimeError(
+            f"Target path cannot be determined from filename '{target_filename}'."
+        )
+
+    if not os.path.exists(target_path):
+        os.makedirs(target_path)

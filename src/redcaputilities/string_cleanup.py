@@ -17,7 +17,8 @@ def clean_up_date(
 
     Parameters
     ----------
-    input_string : Handles string or datetime object, either alone, in a list or as a pandas.Series
+    input_string : Handles string or datetime object,
+                    either alone, in a list or as a pandas.Series
 
     Returns
     -------
@@ -59,7 +60,8 @@ def clean_up_email(input_string: Union[str, list, pandas.Series]) -> Union[str, 
 
     Parameters
     ----------
-    input_string : Handles string email address, either alone, in a list or as a pandas.Series
+    input_string : Handles string email address,
+                    either alone, in a list or as a pandas.Series
 
     Returns
     -------
@@ -138,7 +140,8 @@ def clean_up_language(
 
 
 def clean_up_phone(input_string: Union[str, list, pandas.Series]) -> Union[str, list]:
-    """Ensures phone numbers are in ###-###-#### format. Detects & removes likely dummy numbers like "9999999999".
+    """Ensures phone numbers are in ###-###-#### format.
+       Detects & removes likely dummy numbers like "9999999999".
 
     Parameters
     ----------
@@ -170,7 +173,8 @@ def clean_up_phone(input_string: Union[str, list, pandas.Series]) -> Union[str, 
 
 
 def __clean_up_phone(input_string: str) -> str:
-    """Ensures phone numbers are in ###-###-#### format. Detects & removes likely dummy numbers like "9999999999".
+    """Ensures phone numbers are in ###-###-#### format.
+       Detects & removes likely dummy numbers like "9999999999".
 
     Parameters
     ----------
@@ -227,7 +231,8 @@ def clean_up_string(
 
     Parameters
     ----------
-    input_string : str string, either alone, in a list or as a pandas.Series
+    input_string : str string, either alone,
+                    in a list or as a pandas.Series
     strings_to_ignore : list of strs
 
     Returns
