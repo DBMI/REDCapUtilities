@@ -56,5 +56,5 @@ repos:
         entry: poetry run flake8 src/redcaputilities
         exclude: "tests"
         files: "py$"
-        language: system
+        language: python
         types: [python]
