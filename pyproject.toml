@@ -2,6 +2,16 @@
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
+[project]
+name = 'REDCapUtilities'
+version='1.4.0'
+license= {file = 'LICENSE'}
+readme = "README.md"
+authors = [
+    {name = "Kevin J. Delaney", email = "<kjdelaney@health.ucsd.edu>"},
+]
+description='Allows code reuse by other Python projects.'
+
 [tool.black]
 target-version = ["py312"]
 include = '\.pyi?$'
