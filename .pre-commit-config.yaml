@@ -54,6 +54,7 @@ repos:
         additional_dependencies:
           - tryceratops
         entry: poetry run flake8 src/redcaputilities
+        args: ["--config=.flake8"]
         exclude: "tests"
         files: "py$"
         language: python
