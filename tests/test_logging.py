@@ -3,7 +3,7 @@
 """
 import logging
 import os
-from src.redcaputilities.logging import patient_data_directory, setup_logging
+from src.redcaputilities.my_logging import patient_data_directory, setup_logging
 
 
 def test_logging_setup(secure_data_directory):

@@ -114,7 +114,8 @@ class AddressStandardizer:
         return cleaned
 
     def __build_direction_abbreviations_dict(self) -> dict:
-        """Builds a dictionary from an Excel spreadsheet that converts 'NorthWest' to 'NW'.
+        """Builds a dictionary from an Excel spreadsheet
+           that converts 'NorthWest' to 'NW', etc..
 
         Returns
         -------
@@ -168,7 +169,8 @@ class AddressStandardizer:
             return street_abbrev_dict
 
     def __build_unit_abbreviations_dict(self) -> dict:
-        """Builds a dictionary from an Excel spreadsheet that converts 'Apartment' to 'APT'.
+        """Builds a dictionary from an Excel spreadsheet
+           that converts 'Apartment' to 'APT'.
 
         Returns
         -------
@@ -267,7 +269,8 @@ class AddressStandardizer:
         address_standardized : str
         """
 
-        # Break up numerical and text parts. Turn '123Maple' into '123 Maple' for proper parsing.
+        # Break up numerical and text parts.
+        # Turn '123Maple' into '123 Maple' for proper parsing.
         address = self.__break_up_block(address)
 
         try:
