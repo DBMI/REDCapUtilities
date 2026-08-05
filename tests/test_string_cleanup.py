@@ -123,8 +123,8 @@ def test_clean_up_email_series(dataframe):
 
 def test_clean_up_language():
     language_cleaned: str = clean_up_language('English')
-    assert(isinstance(language_cleaned, str))
-    assert(language_cleaned == 'English')
+    assert (isinstance(language_cleaned, str))
+    assert (language_cleaned == 'English')
 
     language_cleaned = clean_up_language('Other')
     assert (isinstance(language_cleaned, str))

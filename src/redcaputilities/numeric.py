@@ -1,5 +1,5 @@
 """
-    Allows other projects to easily use these numeric utilities.
+Allows other projects to easily use these numeric utilities.
 """
 
 

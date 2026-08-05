@@ -1,18 +1,17 @@
 """
-    Allows other projects to easily use these string cleanup utilities.
+Allows other projects to easily use these string cleanup utilities.
 """
 
 import re
 from datetime import datetime as datetime
 from typing import Union
 
-import re
 import dateutil.parser
 import pandas  # type: ignore[import]
 
 
 def clean_up_date(
-    input_string: Union[str, list, pandas.Series, datetime]
+    input_string: Union[str, list, pandas.Series, datetime],
 ) -> Union[str, list]:
     """Ensures dates are in yyyy-mm-dd format.
 
@@ -100,7 +99,7 @@ def clean_up_email(input_string: Union[str, list, pandas.Series]) -> Union[str, 
 
 
 def clean_up_language(
-    input_string: Union[str, list, pandas.Series]
+    input_string: Union[str, list, pandas.Series],
 ) -> Union[str, list]:
     """Changes 'Other' or 'Unknown.' to NULL.
 
@@ -166,6 +165,22 @@ def clean_up_phone(input_string: Union[str, list, pandas.Series]) -> Union[str, 
 
     if not isinstance(input_string, str):
         raise TypeError("Argument 'input_string' is neither string nor list.")
+
+    return __clean_up_phone(input_string)
+
+
+def __clean_up_phone(input_string: str) -> str:
+    """Ensures phone numbers are in ###-###-#### format. Detects & removes likely dummy numbers like "9999999999".
+
+    Parameters
+    ----------
+    input_string : str
+
+    Returns
+    -------
+    cleaned_up_phone : str
+
+    """
 
     input_string = input_string.strip()
 
