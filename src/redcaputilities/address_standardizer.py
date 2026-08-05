@@ -1,11 +1,12 @@
 import collections
-import usaddress
 import os.path
-from importlib import resources  # type: ignore[import]
-import pandas  # type: ignore[import]
 import re
 import string
+from importlib import resources  # type: ignore[import]
 from typing import Union
+
+import pandas  # type: ignore[import]
+import usaddress
 
 
 class AddressStandardizer:
@@ -107,8 +108,8 @@ class AddressStandardizer:
         -------
         cleaned : str
         """
-        pattern:str = r"^(\d+)([^\d\s]{2,}.+)"
-        replacement: str =r"\1 \2"
+        pattern: str = r"^(\d+)([^\d\s]{2,}.+)"
+        replacement: str = r"\1 \2"
         cleaned: str = re.sub(pattern, replacement, text)
         return cleaned
 
@@ -233,7 +234,7 @@ class AddressStandardizer:
 
             for this_address in address:
                 addresses_standardized.append(
-                    self.standardize_street_address(this_address)
+                    self.__standardize_street_address(this_address)
                 )
 
             return addresses_standardized
@@ -243,7 +244,7 @@ class AddressStandardizer:
 
             for this_address in address:
                 addresses_standardized.append(
-                    self.standardize_street_address(this_address)
+                    self.__standardize_street_address(this_address)
                 )
 
             return pandas.Series(addresses_standardized)
@@ -251,6 +252,20 @@ class AddressStandardizer:
         if not isinstance(address, str):
             # Return empty string.
             return ""
+
+        return self.__standardize_street_address(address)
+
+    def __standardize_street_address(self, address: str) -> str:
+        """Standardizes street address according to USPS rules.
+
+        Parameters
+        ----------
+        address : str
+
+        Returns
+        -------
+        address_standardized : str
+        """
 
         # Break up numerical and text parts. Turn '123Maple' into '123 Maple' for proper parsing.
         address = self.__break_up_block(address)
@@ -264,10 +279,7 @@ class AddressStandardizer:
 
         # Handle PO Box first.
         if "USPSBoxType" in parsed_address_dict and "USPSBoxID" in parsed_address_dict:
-            return (
-                "PO BOX "
-                + self.__clean_text(parsed_address_dict["USPSBoxID"])
-            )
+            return "PO BOX " + self.__clean_text(parsed_address_dict["USPSBoxID"])
 
         address_standardized: str = ""
 

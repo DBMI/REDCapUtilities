@@ -1,5 +1,5 @@
 """
-    Allows other projects to easily use logging.
+Allows other projects to easily use logging.
 """
 
 import inspect
