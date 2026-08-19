@@ -4,13 +4,23 @@ build-backend = "poetry.core.masonry.api"
 
 [project]
 name = 'REDCapUtilities'
-version='1.4.1'
+version='1.4.2'
 license= {file = 'LICENSE'}
 readme = "README.md"
 authors = [
     {name = "Kevin J. Delaney", email = "<kjdelaney@health.ucsd.edu>"},
 ]
 description='Allows code reuse by other Python projects.'
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.7",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+  "Typing :: Typed",
+]
 
 [tool.black]
 target-version = ["py312"]
@@ -41,33 +51,15 @@ ignore_missing_imports = true
 disable_error_code = ["call-arg", "call-overload", "var-annotated"]
 
 [tool.poetry]
-name = "REDCapUtilities"
-version = "1.3.0"
-description = "Collection of functions used across more than one project."
-authors = [
-    "Kevin J. Delaney <kjdelaney@ucsd.edu>",
-]
-license = "MIT"
-readme = "README.md"
-
-documentation = "https://github.com/DBMI/REDCapUtilities"
-homepage = "https://github.com/DBMI/REDCapUtilities"
-repository = "https://github.com/DBMI/REDCapUtilities"
-
-classifiers = [
-  "Development Status :: 4 - Beta",
-  "Intended Audience :: Developers",
-  "Operating System :: OS Independent",
-  "Programming Language :: Python",
-  "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.7",
-  "Topic :: Software Development :: Libraries :: Python Modules",
-  "Typing :: Typed",
-]
-
+package-mode = true
 packages = [
     { include = "redcaputilities", from = "src" }
 ]
+
+[project.urls]
+documentation = "https://github.com/DBMI/REDCapUtilities"
+homepage = "https://github.com/DBMI/REDCapUtilities"
+repository = "https://github.com/DBMI/REDCapUtilities"
 
 [tool.poetry.dependencies]
 numpy = '>=2.4.2'
