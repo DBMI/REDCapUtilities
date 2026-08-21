@@ -2,7 +2,9 @@
     Tests for the directory utility functions.
 """
 import os
+
 import pytest
+
 from src.redcaputilities.directories import ensure_output_path_exists
 
 
