@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [project]
 name = 'REDCapUtilities'
-version='1.4.3'
+version='1.4.4'
 license= {file = 'LICENSE'}
 readme = "README.md"
 authors = [
@@ -23,7 +23,7 @@ classifiers = [
 ]
 
 [tool.black]
-target-version = ["py312"]
+target-version = ["py311"]
 include = '\.pyi?$'
 
 [tool.coverage.report]
