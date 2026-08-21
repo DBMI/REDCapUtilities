@@ -76,7 +76,7 @@ class StateAbbreviationConverter:  # pylint: disable=too-few-public-methods
             "WY": "Wyoming",
         }
 
-    def full_name(self, two_letter_code):
+    def full_name(self, two_letter_code) -> str:
         """Converts two-letter abbreviation to a full state name.
 
         Parameters
