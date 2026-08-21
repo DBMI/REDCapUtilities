@@ -3,7 +3,9 @@ Module test_string_cleanup.py, which performs automated
 testing of the functions in string_cleanup.py
 """
 import datetime
+
 import pytest
+
 from src.redcaputilities.string_cleanup import (
     clean_up_date,
     clean_up_email,
@@ -122,17 +124,17 @@ def test_clean_up_email_series(dataframe):
 
 
 def test_clean_up_language():
-    language_cleaned: str = clean_up_language('English')
-    assert (isinstance(language_cleaned, str))
-    assert (language_cleaned == 'English')
+    language_cleaned: str = clean_up_language("English")
+    assert isinstance(language_cleaned, str)
+    assert language_cleaned == "English"
 
-    language_cleaned = clean_up_language('Other')
-    assert (isinstance(language_cleaned, str))
-    assert (len(language_cleaned) == 0)
+    language_cleaned = clean_up_language("Other")
+    assert isinstance(language_cleaned, str)
+    assert len(language_cleaned) == 0
 
-    language_cleaned = clean_up_language('Unknown.')
-    assert (isinstance(language_cleaned, str))
-    assert (len(language_cleaned) == 0)
+    language_cleaned = clean_up_language("Unknown.")
+    assert isinstance(language_cleaned, str)
+    assert len(language_cleaned) == 0
 
 
 def test_clean_up_phone():
