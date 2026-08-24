@@ -52,9 +52,9 @@ disable_error_code = ["call-arg", "call-overload", "var-annotated"]
 
 [tool.poetry]
 package-mode = true
-packages = [
-    { include = "redcaputilities", from = "src" }
-]
+
+[[tool.poetry.packages]]
+include = "redcaputilities"
 
 [project.urls]
 documentation = "https://github.com/DBMI/REDCapUtilities"
