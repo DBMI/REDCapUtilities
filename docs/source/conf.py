@@ -14,10 +14,10 @@ html_logo = "../../pictures/logo.png"  # adds logo to documents pages.
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'REDCap Utilities'
-copyright = '2024, University of California'
-author = 'Kevin J. Delaney'
-release = '1.1.5'
+project = "REDCap Utilities"
+project_copyright = "2026, University of California"
+author = "Kevin J. Delaney"
+release = "1.4.4"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -26,16 +26,15 @@ extensions = [
     "sphinx.ext.napoleon",
     "sphinx_markdown_builder",
     "sphinx.ext.autodoc",
-    "sphinx.ext.autosummary"
+    "sphinx.ext.autosummary",
 ]
 
-templates_path = ['_templates']
+templates_path = ["_templates"]
 exclude_patterns = []
-
 
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'alabaster'
-html_static_path = ['_static']
+html_theme = "alabaster"
+html_static_path = ["_static"]
