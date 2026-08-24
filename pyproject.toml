@@ -51,7 +51,8 @@ ignore_missing_imports = true
 disable_error_code = ["call-arg", "call-overload", "var-annotated"]
 
 [tool.poetry]
-package-mode = true
+name = "REDCapUtilities"
+package-mode = false
 
 [[tool.poetry.packages]]
 include = "redcaputilities"
