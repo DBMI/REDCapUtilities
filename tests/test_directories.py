@@ -1,6 +1,7 @@
 """
-    Tests for the directory utility functions.
+Tests for the directory utility functions.
 """
+
 import os
 
 import pytest

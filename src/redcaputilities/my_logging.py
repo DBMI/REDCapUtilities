@@ -7,7 +7,6 @@ import logging
 import logging.handlers
 import os
 import sys
-from typing import Union
 
 from redcaputilities.directories import ensure_output_path_exists
 
@@ -29,7 +28,7 @@ def patient_data_directory() -> str:
     return patient_data_dir
 
 
-def setup_logging(log_filename: Union[str, None] = None) -> logging.Logger:
+def setup_logging(log_filename: str | None = None) -> logging.Logger:
     """
 
     Parameters

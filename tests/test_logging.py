@@ -1,6 +1,7 @@
 """
-    Tests for the logging utility functions.
+Tests for the logging utility functions.
 """
+
 import logging
 import os
 

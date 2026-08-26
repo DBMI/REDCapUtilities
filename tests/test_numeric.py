@@ -1,6 +1,7 @@
 """
-    Tests for the numeric utility functions.
+Tests for the numeric utility functions.
 """
+
 import pytest
 
 from src.redcaputilities.numeric import is_even

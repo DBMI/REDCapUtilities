@@ -2,6 +2,7 @@
 Module test_string_cleanup.py, which performs automated
 testing of the functions in string_cleanup.py
 """
+
 import datetime
 
 import pytest
