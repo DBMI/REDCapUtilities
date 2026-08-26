@@ -16,7 +16,7 @@
 The REDCapUtilities library contains functions used across more than one project.
 
 ### Address Standardization
-A patient may have their address listed in one database as _123 N Apple St #234_ and in another database as _123 North Apple Street Apt 234_. To help recognize these strings as the same address, the `AddressStandardizer` class uses the Python package [usaddress](https://pypi.org/project/usaddress/) to break up an address string into its components (like _AddressNumber_, _StreetNamePreDirectional_, etc.), then applies the [US Postal service rules](https://pe.usps.com/text/pub28/welcome.htm). that (for example) turn "North" into "N" and "Street" into "ST".
+A patient may have their address listed in one database as _123 N Apple St #234_ and in another database as _123 North Apple Street Apt 234_. To help recognize these strings as the same address, the `AddressStandardizer` class uses the Python package [usaddress](https://pypi.org/project/usaddress/) to break up an address string into its components (like _AddressNumber_, _StreetNamePreDirectional_, etc.), then applies the [US Postal service rules](https://pe.usps.com/text/pub28/welcome.htm) that (for example) turn "North" into "N" and "Street" into "ST".
 
 
 ### String Cleanup
