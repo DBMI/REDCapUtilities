@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [project]
 name = 'REDCapUtilities'
-version='1.4.4'
+version='1.4.5'
 license= {file = 'LICENSE'}
 readme = "README.md"
 authors = [
@@ -51,11 +51,9 @@ ignore_missing_imports = true
 disable_error_code = ["call-arg", "call-overload", "var-annotated"]
 
 [tool.poetry]
-name = "REDCapUtilities"
-package-mode = false
-
-[[tool.poetry.packages]]
-include = "redcaputilities"
+name = "redcaputilities"
+package-mode = true
+packages = [{include = "redcaputilities", from = "src"}]
 
 [project.urls]
 documentation = "https://github.com/DBMI/REDCapUtilities"
