@@ -2,6 +2,7 @@
 Module test_address_standardization.py, which performs automated
 testing of the AddressStandardizer class.
 """
+
 from src.redcaputilities.address_standardizer import AddressStandardizer
 
 

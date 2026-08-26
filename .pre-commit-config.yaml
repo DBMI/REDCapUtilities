@@ -1,6 +1,6 @@
 repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v6.0.0
+    rev: v5.0.0
     hooks:
       - id: check-ast
       - id: check-added-large-files
@@ -14,6 +14,13 @@ repos:
       - id: trailing-whitespace
         files: "py$"
       - id: mixed-line-ending
+
+-   repo: https://github.com/asottile/pyupgrade
+    rev: v3.19.1
+    hooks:
+      - id: pyupgrade
+        args: [--py311-plus]
+
 -   repo: local
     hooks:
       - id: autoflake
@@ -22,23 +29,21 @@ repos:
         files: "py$"
         language: system
         types: [ python ]
+
       - id: isort
         name: isort
         entry: poetry run isort src/redcaputilities
         files: "py$"
         language: system
         types: [python]
+
       - id: black
         name: black
         entry: poetry run black src/redcaputilities
         files: "py$"
         language: system
         types: [python]
-      - id: pyupgrade
-        name: pyupgrade
-        entry: poetry run pyupgrade --py37-plus
-        language: system
-        types: [python]
+
       - id: mypy
         name: mypy
         entry: poetry run mypy src/redcaputilities
@@ -48,6 +53,7 @@ repos:
         types: [python]
         pass_filenames: false
         additional_dependencies: ["mypy==2.3.0"]
+
       - id: flake8
         name: flake8
         additional_dependencies:

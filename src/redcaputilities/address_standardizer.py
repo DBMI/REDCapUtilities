@@ -3,7 +3,6 @@ import os.path
 import re
 import string
 from importlib import resources  # type: ignore[import]
-from typing import Union
 
 import pandas  # type: ignore[import]
 import usaddress
@@ -219,17 +218,17 @@ class AddressStandardizer:
         return text.upper()
 
     def standardize_street_address(
-        self, address: Union[str, list, pandas.Series]
-    ) -> Union[str, list, pandas.Series]:
+        self, address: str | list | pandas.Series
+    ) -> str | list | pandas.Series:
         """Standardizes street address according to USPS rules.
 
         Parameters
         ----------
-        address : Union[str, list, pandas.Series]
+        address : either str, list or pandas.Series
 
         Returns
         -------
-        address_standardized : Union[str, list, pandas.Series]
+        address_standardized : either str, list or pandas.Series
         """
         if isinstance(address, list):
             addresses_standardized: list = []

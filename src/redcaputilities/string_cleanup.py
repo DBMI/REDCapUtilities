@@ -4,15 +4,14 @@ Allows other projects to easily use these string cleanup utilities.
 
 import re
 from datetime import datetime as datetime
-from typing import Union
 
 import dateutil.parser
 import pandas  # type: ignore[import]
 
 
 def clean_up_date(
-    input_string: Union[str, list, pandas.Series, datetime],
-) -> Union[str, list]:
+    input_string: str | list | pandas.Series | datetime,
+) -> str | list:
     """Ensures dates are in yyyy-mm-dd format.
 
     Parameters
@@ -55,7 +54,7 @@ def clean_up_date(
     return cleaned_up_date
 
 
-def clean_up_email(input_string: Union[str, list, pandas.Series]) -> Union[str, list]:
+def clean_up_email(input_string: str | list | pandas.Series) -> str | list:
     """Removes emails like 'None' or 'none@ucsd.edu'.
 
     Parameters
@@ -101,8 +100,8 @@ def clean_up_email(input_string: Union[str, list, pandas.Series]) -> Union[str, 
 
 
 def clean_up_language(
-    input_string: Union[str, list, pandas.Series],
-) -> Union[str, list]:
+    input_string: str | list | pandas.Series,
+) -> str | list:
     """Changes 'Other' or 'Unknown.' to NULL.
 
     Parameters
@@ -139,7 +138,7 @@ def clean_up_language(
     return cleaned_up_language
 
 
-def clean_up_phone(input_string: Union[str, list, pandas.Series]) -> Union[str, list]:
+def clean_up_phone(input_string: str | list | pandas.Series) -> str | list:
     """Ensures phone numbers are in ###-###-#### format.
        Detects & removes likely dummy numbers like "9999999999".
 
@@ -225,8 +224,8 @@ def __clean_up_phone(input_string: str) -> str:
 
 
 def clean_up_string(
-    input_string: Union[str, list, pandas.Series], strings_to_ignore: list
-) -> Union[str, list]:
+    input_string: str | list | pandas.Series, strings_to_ignore: list
+) -> str | list:
     """Blank strings on the 'ignore' list.
 
     Parameters
@@ -273,7 +272,7 @@ def clean_up_string(
     return cleaned_up_string
 
 
-def clean_up_time(input_string: Union[str, list, pandas.Series]) -> Union[str, list]:
+def clean_up_time(input_string: str | list | pandas.Series) -> str | list:
     """Ensures times are in HH:MM:SS format.
 
     Parameters

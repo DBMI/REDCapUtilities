@@ -6,6 +6,7 @@ Classes
 -------
 TestSynthesizer
 """
+
 import pandas
 import pytest
 
