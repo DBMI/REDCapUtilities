@@ -38,15 +38,15 @@ jobs:
     needs: [actionlint, lint-cruft]
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
             python-version: "3.11"
 
       - name: Run Linters & Formatters
-        run: pre-commit/action@v3.0.1
+        run: pre-commit run --all-files
 
   test:
     name: Run Test Suite
