@@ -1,12 +1,11 @@
 from typing import Any
 
 class AddressStandardizer:
-    def __init__(self) -> None:
-        self.__direction_abbrev_dict = dict
-        self.__street_abbrev_dict = dict
-        self.__unit_abbrev_dict = dict
-        ...
+    __direction_abbrev_dict: dict
+    __street_abbrev_dict: dict
+    __unit_abbrev_dict: dict
 
+    def __init__(self) -> None: ...
     def __abbreviate_direction(self, direction: str) -> str: ...
     def __abbreviate_street_type(self, street_type: str) -> str: ...
     def __abbreviate_unit_type(self, street_type: str) -> str: ...

@@ -37,7 +37,7 @@ def test_clean_up_date():
 
     #   Handle actual datetime object.
     date_string = "01/02/2023"
-    datetime_obj = datetime.datetime.strptime(date_string, "%M/%d/%Y")
+    datetime_obj = datetime.datetime.strptime(date_string, "%M/%d/%Y").astimezone()
     date_string_cleaned = clean_up_date(input_string=datetime_obj)
     assert isinstance(date_string_cleaned, str)
     assert date_string_cleaned == date_string_proper
@@ -67,7 +67,7 @@ def test_clean_up_date_list():
     date_strings_cleaned = clean_up_date(input_string=date_string_list)
     assert isinstance(date_strings_cleaned, list)
     assert all(
-        [date_string == date_string_proper for date_string in date_strings_cleaned]
+        date_string == date_string_proper for date_string in date_strings_cleaned
     )
 
 
@@ -108,10 +108,7 @@ def test_clean_up_email_list():
     email_addresses_cleaned = clean_up_email(input_string=email_address_list)
     assert isinstance(email_addresses_cleaned, list)
     assert all(
-        [
-            phone_string == email_address_proper
-            for phone_string in email_addresses_cleaned
-        ]
+        phone_string == email_address_proper for phone_string in email_addresses_cleaned
     )
 
 
@@ -174,7 +171,7 @@ def test_clean_up_phone_list():
     phone_strings_cleaned = clean_up_phone(input_string=phone_strings_list)
     assert isinstance(phone_strings_cleaned, list)
     assert all(
-        [phone_string == phone_string_proper for phone_string in phone_strings_cleaned]
+        phone_string == phone_string_proper for phone_string in phone_strings_cleaned
     )
 
 
@@ -279,7 +276,7 @@ def test_clean_up_time_list():
     time_strings_cleaned = clean_up_time(input_string=time_strings_list)
     assert isinstance(time_strings_cleaned, list)
     assert all(
-        [time_string == time_string_proper for time_string in time_strings_cleaned]
+        time_string == time_string_proper for time_string in time_strings_cleaned
     )
 
 
