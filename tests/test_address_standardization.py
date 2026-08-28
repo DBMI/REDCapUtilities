@@ -64,7 +64,7 @@ def test_address_standardization_list():
     address_list = ["123 West Maple Street", "123 W MAPLE ST"]
     addresses_cleaned = addr_stndzer.standardize_street_address(address=address_list)
     assert isinstance(addresses_cleaned, list)
-    assert all([address == address_proper for address in addresses_cleaned])
+    assert all(address == address_proper for address in addresses_cleaned)
 
 
 if __name__ == "__main__":

@@ -3,7 +3,7 @@ Allows other projects to easily use these string cleanup utilities.
 """
 
 import re
-from datetime import datetime as datetime
+from datetime import datetime
 
 import dateutil.parser
 import pandas  # type: ignore[import]
@@ -355,15 +355,13 @@ def __extend_street_abbreviations(street_address: str) -> str:
         "wy": "Way",
     }
 
-    for key in abbreviations:
+    for key, value in abbreviations.items():
         if key in street_address:
             #   Remove punctuation associated with abbreviation.
             street_address = re.sub(key + r"\.", key, street_address)
 
             #   Replace keys if they are a full word.
-            street_address = re.sub(
-                r"\b" + key + r"\b", abbreviations[key], street_address
-            )
+            street_address = re.sub(r"\b" + key + r"\b", value, street_address)
 
     #   Restore to Title Case.
     street_address = street_address.title()

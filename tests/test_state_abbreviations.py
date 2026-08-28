@@ -7,9 +7,6 @@ Classes
 TestSynthesizer
 """
 
-import pandas
-import pytest
-
 from src.redcaputilities.state_abbr_conversion import StateAbbreviationConverter
 
 

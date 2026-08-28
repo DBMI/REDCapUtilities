@@ -1,8 +1,6 @@
 from datetime import datetime as datetime
 from typing import Any
 
-import pandas
-
 def clean_up_address(input_string: str | list[Any] | Any) -> str | list: ...
 def clean_up_date(
     input_string: str | list[Any] | Any | datetime,
