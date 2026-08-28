@@ -45,8 +45,10 @@ jobs:
         with:
             python-version: "3.11"
 
-      - name: Run Linters & Formatters
-        run: pre-commit run --all-files
+      - name: Install and Run Pre-commit
+        run: |
+          pip install pre-commit
+          pre-commit run --all-files
 
   test:
     name: Run Test Suite
