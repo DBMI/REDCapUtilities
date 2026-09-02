@@ -5,8 +5,6 @@ testing of the functions in string_cleanup.py
 
 import datetime
 
-import pytest
-
 from src.redcaputilities.string_cleanup import (
     clean_up_date,
     clean_up_email,
@@ -46,9 +44,10 @@ def test_clean_up_date():
     assert isinstance(date_string_cleaned, str)
     assert date_string_cleaned == date_string_proper
 
-    # Expect to raise an error:
-    with pytest.raises(TypeError):
-        clean_up_date(input_string=12345)
+    # Test if not a date.
+    date_string_cleaned = clean_up_date(input_string=12345)
+    assert isinstance(date_string_cleaned, str)
+    assert len(date_string_cleaned) == 0
 
     # Test if it can't parse.
     date_string_cleaned = clean_up_date(input_string="ABCDEFG")
@@ -93,12 +92,9 @@ def test_clean_up_email():
     assert len(clean_up_email(input_string="refused@example.com")) == 0
     assert len(clean_up_email(input_string="unknown@nowhere.edu")) == 0
 
-    #   Corner case.
+    #   Corner cases.
     assert len(clean_up_email(input_string=None)) == 0
-
-    #   Expect to raise an error:
-    with pytest.raises(TypeError):
-        clean_up_email(input_string=12345)
+    assert len(clean_up_email(input_string=12345))
 
 
 def test_clean_up_email_list():
@@ -256,9 +252,9 @@ def test_clean_up_time():
     assert isinstance(time_string_cleaned, str)
     assert len(time_string_cleaned) == 0
 
-    # Expect to raise an error:
-    with pytest.raises(TypeError):
-        clean_up_time(input_string=12345)
+    time_string_cleaned = clean_up_time(input_string=12345)
+    assert isinstance(time_string_cleaned, str)
+    assert len(time_string_cleaned) == 0
 
     time_string_cleaned = clean_up_time(input_string=None)
     assert isinstance(time_string_cleaned, str)
