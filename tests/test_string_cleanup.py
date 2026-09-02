@@ -94,7 +94,7 @@ def test_clean_up_email():
 
     #   Corner cases.
     assert len(clean_up_email(input_string=None)) == 0
-    assert len(clean_up_email(input_string=12345))
+    assert len(clean_up_email(input_string=12345)) == 0
 
 
 def test_clean_up_email_list():
