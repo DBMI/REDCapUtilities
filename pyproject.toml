@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [project]
 name = 'REDCapUtilities'
-version='1.4.6'
+version='1.4.7'
 license= {file = 'LICENSE'}
 readme = "README.md"
 authors = [
@@ -22,33 +22,12 @@ classifiers = [
   "Typing :: Typed",
 ]
 
-[tool.black]
-target-version = ["py311"]
-include = '\.pyi?$'
-
 [tool.coverage.report]
 fail_under = 100
 exclude_lines = [
     'if TYPE_CHECKING:',
     'pragma: no cover'
 ]
-
-[tool.isort]
-profile = "black"
-src_paths = ["src", "tests"]
-
-[tool.mypy]
-disallow_any_unimported = true
-disallow_untyped_defs = true
-no_implicit_optional = true
-strict_equality = true
-warn_unused_ignores = true
-warn_redundant_casts = true
-warn_return_any = true
-check_untyped_defs = true
-show_error_codes = true
-ignore_missing_imports = true
-disable_error_code = ["call-arg", "call-overload", "var-annotated"]
 
 [tool.poetry]
 name = "redcaputilities"
@@ -98,4 +77,4 @@ addopts = """\
     --no-cov-on-fail \
 """
 pythonpath = [".", "src"]
-testpaths = ["redcaputilities"]
+testpaths = ["tests"]
