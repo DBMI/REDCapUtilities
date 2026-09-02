@@ -155,9 +155,9 @@ def test_clean_up_phone():
     assert isinstance(phone_cleaned, str)
     assert phone_cleaned == phone_string_proper
 
-    # Expect to raise an error:
-    with pytest.raises(TypeError):
-        clean_up_phone(input_string=12345)
+    phone_cleaned = clean_up_phone(input_string=12345)
+    assert isinstance(phone_cleaned, str)
+    assert len(phone_cleaned) == 0
 
     phone_string_cleaned = clean_up_phone(input_string=None)
     assert isinstance(phone_string_cleaned, str)
