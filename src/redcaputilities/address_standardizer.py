@@ -267,6 +267,8 @@ class AddressStandardizer:
         -------
         address_standardized : str
         """
+        if not isinstance(address, str):
+            return ""
 
         # Break up numerical and text parts.
         # Turn '123Maple' into '123 Maple' for proper parsing.
