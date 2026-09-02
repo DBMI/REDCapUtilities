@@ -42,7 +42,7 @@ def clean_up_date(
         return input_string.strftime("%Y-%m-%d")
 
     if not isinstance(input_string, str):
-        raise TypeError("Argument 'input_string' is neither string nor list.")
+        return ""
 
     # Let's not reinvent the wheel. Use this flexible library.
     try:
@@ -82,7 +82,7 @@ def clean_up_email(input_string: str | list | pandas.Series) -> str | list:
         input_string = input_string[0]
 
     if not isinstance(input_string, str):
-        raise TypeError("Argument 'input_string' is neither string nor list.")
+        return ""
 
     #   Remove None, NONE, etc. but not if it's part of a larger string
     cleaned_up_email = re.sub(
@@ -128,7 +128,7 @@ def clean_up_language(
         input_string = input_string[0]
 
     if not isinstance(input_string, str):
-        raise TypeError("Argument 'input_string' is neither string nor list.")
+        return ""
 
     cleaned_up_language: str = ""
 
@@ -299,7 +299,7 @@ def clean_up_time(input_string: str | list | pandas.Series) -> str | list:
         input_string = input_string[0]
 
     if not isinstance(input_string, str):
-        raise TypeError("Argument 'input_string' is neither string nor list.")
+        return ""
 
     # Let's not reinvent the wheel. Use this flexible library.
     try:
@@ -390,7 +390,7 @@ def __fix_po_box(street_address: str) -> str:
         return ""
 
     if not isinstance(street_address, str):
-        raise TypeError("Argument 'street_address' is not expected string.")
+        return ""
 
     #   Convert 'P.O. box' or 'Po box' to 'PO Box'.
     cleaned_up_address: str = re.sub(
