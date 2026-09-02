@@ -166,7 +166,7 @@ def clean_up_phone(input_string: str | list | pandas.Series) -> str | list:
         input_string = input_string[0]
 
     if not isinstance(input_string, str):
-        raise TypeError("Argument 'input_string' is neither string nor list.")
+        return ""
 
     return __clean_up_phone(input_string)
 

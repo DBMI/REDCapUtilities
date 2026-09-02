@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [project]
 name = 'REDCapUtilities'
-version='1.4.7'
+version='1.4.8'
 license= {file = 'LICENSE'}
 readme = "README.md"
 authors = [
