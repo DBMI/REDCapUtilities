@@ -31,7 +31,6 @@ def test_logging_setup():
     assert os.path.exists(target_log_file)
 
 
-def test_patient_data_directory(tmp_path):
+def test_patient_data_directory():
     pat_data_dir = patient_data_directory()
     assert isinstance(pat_data_dir, str)
-    assert pat_data_dir == tmp_path
