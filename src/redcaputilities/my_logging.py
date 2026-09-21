@@ -75,7 +75,7 @@ def setup_logging(log_filename: str | None = None) -> logging.Logger:
 
     # New log for every day; discard logs > 30 days old.
     logfile_handler = ConcurrentRotatingFileHandler(
-        filename=log_filename, mode="append", backupCount=10, encoding="utf-8"
+        filename=log_filename, mode="a", backupCount=10, encoding="utf-8", delay=None
     )
     logfile_format = logging.Formatter(
         fmt="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
