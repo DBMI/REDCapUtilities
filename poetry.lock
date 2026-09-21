@@ -303,6 +303,24 @@ files = [
 ]
 
 [[package]]
+name = "concurrent-log-handler"
+version = "0.9.29"
+description = "RotatingFileHandler replacement with concurrency, gzip and Windows support. Size and time based rotation."
+optional = false
+python-versions = ">=3.6"
+groups = ["main"]
+files = [
+    {file = "concurrent_log_handler-0.9.29-py3-none-any.whl", hash = "sha256:0d6c077fbaef2dae49a25975dcf72a602fe0a6a4ce80a3b7c37696d37e10459a"},
+    {file = "concurrent_log_handler-0.9.29.tar.gz", hash = "sha256:bc37a76d3f384cbf4a98f693ebd770543edc0f4cd5c6ab6bc70e9e1d7d582265"},
+]
+
+[package.dependencies]
+portalocker = ">=2.6.0"
+
+[package.extras]
+dev = ["black (>=26.1.0)", "coverage", "hatch", "pytest", "pytest-cov", "pytest-mock", "pytest-repeat", "pytest-sugar", "ruff (>=0.15.2)"]
+
+[[package]]
 name = "coverage"
 version = "7.15.4"
 description = "Code coverage measurement for Python"
@@ -1321,6 +1339,24 @@ dev = ["pre-commit", "tox"]
 testing = ["coverage", "pytest", "pytest-benchmark"]
 
 [[package]]
+name = "portalocker"
+version = "4.4.0"
+description = "Cross-platform file locking, with Redis, PID-file and bounded-semaphore locks"
+optional = false
+python-versions = ">=3.10"
+groups = ["main"]
+files = [
+    {file = "portalocker-4.4.0-py3-none-any.whl", hash = "sha256:a8e99ea29bfb61766ee0b4008cbaf0651e8e050f7a2485ebf54316480e99226e"},
+    {file = "portalocker-4.4.0.tar.gz", hash = "sha256:90c0df939d4ffba121f8e925bbf98ecea8b9381718666ab871a226938d2b63b2"},
+]
+
+[package.extras]
+docs = ["furo", "sphinx (>=7)"]
+redis = ["redis (>=5.0)"]
+tests = ["coverage-conditional-plugin (>=0.9)", "fakeredis (>=2.31.0)", "portalocker[redis]", "pytest (>=5.4.1)", "pytest-cov (>=2.8.1)", "pytest-rerunfailures (>=15.1)", "pytest-timeout (>=2.1.0)", "types-pywin32 (>=310.0.0.20250429)", "typing-extensions (>=4.4)"]
+win32 = ["pywin32 (>=226) ; sys_platform == \"win32\""]
+
+[[package]]
 name = "pre-commit"
 version = "4.6.2"
 description = "A framework for managing and maintaining multi-language pre-commit hooks."
@@ -1990,4 +2026,4 @@ packaging = ">=24.0"
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11, <4.0"
-content-hash = "c698bbc01a41712f27948f11294614d4b86b1a20e0b7d06e7e5c7692d6792dca"
+content-hash = "d0887358cef0e309f78eddb3d512dfd787fcbb67968ef795f3d9cb20c9ff7cd7"

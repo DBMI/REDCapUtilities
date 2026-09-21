@@ -8,6 +8,8 @@ import logging.handlers
 import os
 import sys
 
+from concurrent_log_handler import ConcurrentRotatingFileHandler
+
 from redcaputilities.directories import ensure_output_path_exists
 
 
@@ -72,19 +74,13 @@ def setup_logging(log_filename: str | None = None) -> logging.Logger:
     console_handler.setFormatter(console_format)
 
     # New log for every day; discard logs > 30 days old.
-    logfile_handler = logging.handlers.TimedRotatingFileHandler(
-        filename=log_filename,
-        when="D",
-        interval=1,
-        backupCount=30,
-        encoding="utf-8",
-        delay=False,
+    logfile_handler = ConcurrentRotatingFileHandler(
+        filename=log_filename, mode="append", backupCount=10, encoding="utf-8"
     )
     logfile_format = logging.Formatter(
         fmt="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
     )
     logfile_handler.setFormatter(logfile_format)
-
     logger.addHandler(console_handler)
     logger.addHandler(logfile_handler)
     logger.setLevel(logging.INFO)
