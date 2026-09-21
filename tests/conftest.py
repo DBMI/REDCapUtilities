@@ -44,8 +44,3 @@ def fixture_multiple_dataframe() -> pandas.DataFrame:
         index=[1],
     )
     return pandas.concat([df1, df2])
-
-
-@pytest.fixture(name="secure_data_directory")
-def fixture_secure_data_directory() -> str:
-    return r"F:\dbmi.data\redcap_refresh"
